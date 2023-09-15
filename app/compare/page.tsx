@@ -1,5 +1,5 @@
 import Breadcrumb from "@/components/Common/Breadcrumb";
-import Contact from "@/components/Contact";
+import Image from "next/image";
 
 const ContactPage = () => {
   return (
@@ -8,8 +8,9 @@ const ContactPage = () => {
         pageName="Contact Page"
         description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In varius eros eget sapien consectetur ultrices. Ut quis dapibus libero."
       />
- 
-      <Contact />
+
+      <Image src="/images/compare/background.png" alt="343" fill />
+
     </>
   );
 };
