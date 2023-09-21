@@ -41,7 +41,7 @@ const Header = () => {
         className={`header top-0 left-0 z-40 flex w-full items-center bg-transparent ${
           sticky
             ? "!fixed !z-[9999] !bg-white !bg-opacity-80 shadow-sticky backdrop-blur-sm !transition dark:!bg-primary dark:!bg-opacity-20"
-            : "absolute"
+            : "absolute !bg-white !bg-opacity-80  dark:!bg-primary dark:!bg-opacity-20"
         }`}
       >
         <div className="container">
@@ -50,23 +50,26 @@ const Header = () => {
               <Link
                 href="/"
                 className={`header-logo block w-full ${
-                  sticky ? "py-5 lg:py-2" : "py-8"
+                  sticky ? "py-5 lg:py-2" : "py-5"
                 } `}
               >
                 <Image
-                  src="/images/logo/logo2.png"
+                  src="/images/logo/logo1.png"
                   alt="logo"
                   width={140}
                   height={30}
                   className="w-full dark:hidden"
+                  style={{ width: "100%!important", height: "30px!important" }}
                 />
                 <Image
-                  src="/images/logo/logo2.png"
+                  src="/images/logo/logo1.png"
                   alt="logo"
                   width={140}
                   height={30}
                   className="hidden w-full dark:block"
+                  style={{ width: "100%!important", height: "30px!important" }}
                 />
+                
               </Link>
             </div>
             <div className="flex w-full items-center justify-between px-4">
