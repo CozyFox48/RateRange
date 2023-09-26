@@ -2,7 +2,6 @@
 module.exports = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx}",
-    "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   darkMode: "class",
@@ -19,6 +18,7 @@ module.exports = {
       dark: "#000000",
       primary: "#2FB673",
       yellow: "#FBB040",
+      danger:"#D21404",
       "body-color": "#959CB1",
     },
     screens: {

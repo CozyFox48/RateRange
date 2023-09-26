@@ -35,7 +35,7 @@ async function fetchData() {
 
             try {
                 const productsList = response.data.data.products;
-                if (productsList !== undefined && productsList !== {} && productsList !== null) {
+                if (productsList !== undefined && Array.isArray(productsList) && productsList.length > 0) {
                     for (const eachProduct of productsList) {
                         try {
                             const existing = await Product.findOne({ 'mainInfo.productId': eachProduct.productId });

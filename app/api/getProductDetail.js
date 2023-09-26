@@ -35,7 +35,7 @@ async function fetchData() {
             try {
                 const productsDetail = response.data.data;
                 // console.log("productsDetail",productsDetail)
-                if (productsDetail !== undefined && productsDetail !== {} && productsDetail !== null) {
+  if (Object.keys(productsDetail).length > 0) {
                     try {
                         if(productsDetail.eligibility && productsDetail.eligibility.length>0){
                             productsDetail.eligibility=productsDetail.eligibility.filter(item=>{

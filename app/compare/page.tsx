@@ -10,11 +10,24 @@ import First_Filter from "./first_filter";
 
 const ContactPage = () => {
   const [open, setOpen] = useState(true);
+  const [searchQuery, setSearchQuery]=useState({
+    loan_purpose:"",
+    property_purpose:"",
+    rate_type:"",
+    repayment_type:"",
+    total_amount:0,
+    borrow_amount:0,
+    term:0
+  })
+
+  const searchFunc=()=>{
+    
+  }
 
   return (
     <>
       <div className="flex flex-row justify-center w-full">
-        <First_Filter open={open} setOpen={setOpen} />
+        <First_Filter open={open} setOpen={setOpen} searchQuery={searchQuery} setSearchQuery={setSearchQuery} searchFunc={searchFunc}/>
         <div className="w-full h-full relative">
           <Head_Picture />
           <div className=" w-4/5  mx-auto !z-[9000] max-w-[1400px]">
