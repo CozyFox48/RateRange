@@ -3,19 +3,18 @@ import { Dialog, Transition } from '@headlessui/react'
 import { useRef, Fragment, useState } from "react";
 import Image from "next/image"
 type ChildComponentProps = {
-    open: boolean;
-    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
     searchQuery:any;
     setSearchQuery: React.Dispatch<React.SetStateAction<any>>;
     searchFunc:()=>void;
 };
-const First_Filter: React.FC<ChildComponentProps> = ({ open, setOpen, searchQuery, setSearchQuery,searchFunc }) => {
-    const cancelButtonRef = useRef(null)
+const First_Filter: React.FC<ChildComponentProps> = ({  searchQuery, setSearchQuery,searchFunc }) => {
+
     const [agreePolicy, setAgreePolicy] = useState(false);
+    const [open, setOpen] = useState(true);
 
     return (
         <Transition.Root show={open} as={Fragment}>
-            <Dialog as="div" className="relative z-10 " initialFocus={cancelButtonRef} onClose={setOpen}>
+            <Dialog as="div" className="relative z-10 "  onClose={()=>{}}>
                 <Transition.Child
                     as={Fragment}
                     enter="ease-out duration-300"
@@ -59,7 +58,7 @@ const First_Filter: React.FC<ChildComponentProps> = ({ open, setOpen, searchQuer
                                 <div className='w-full mx-[5%]  text-2xl font-bold  mb-[1%] text-primary'>
                                     Let&apos;s help you find your new home loan
                                 </div>
-                                <div className='grid grid-cols-2 gap-[5%] mx-[5%] mb-[3%]'>
+                                <div className='grid grid-cols-2 gap-x-[40px] gap-y-[0px] mx-[5%] mb-[3%]'>
                                     <div className=''>
                                         <div className='w-full m-[5px] font-bold text-xl'>Loan Purpose</div>
                                         <div className='flex w-full gap-[10px]'>
@@ -191,7 +190,7 @@ const First_Filter: React.FC<ChildComponentProps> = ({ open, setOpen, searchQuer
                                         </div>
                                     </div>
                                 </div>
-                                <div className="bg-gray-50 mx-[3%] my-[2%] flex justify-between sm:flex-row-reverse sm:px-6 align-center">
+                                <div className="bg-gray-50 mx-[3%] mb-[20px] flex justify-between sm:flex-row-reverse sm:px-6 align-center">
                                     <button
                                         type="button"
                                         disabled={!agreePolicy}
@@ -200,7 +199,6 @@ const First_Filter: React.FC<ChildComponentProps> = ({ open, setOpen, searchQuer
                                             searchFunc();
                                             setOpen(false);
                                         }}
-                                        ref={cancelButtonRef}
                                     >
                                         Continue
                                     </button>

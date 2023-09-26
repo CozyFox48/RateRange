@@ -7,9 +7,10 @@ import Product_List from "./product_list";
 import Filter_List from "./filter_list";
 import Selected_Product from "./selected_product";
 import First_Filter from "./first_filter";
+import axios from "axios";
 
 const ContactPage = () => {
-  const [open, setOpen] = useState(true);
+ 
   const [searchQuery, setSearchQuery]=useState({
     loan_purpose:"",
     property_purpose:"",
@@ -20,14 +21,16 @@ const ContactPage = () => {
     term:0
   })
 
-  const searchFunc=()=>{
-    
+  const searchFunc=async ()=>{
+    const response=await fetch('/api');
+    const data=await response.json();
+    console.log(data);
   }
 
   return (
     <>
       <div className="flex flex-row justify-center w-full">
-        <First_Filter open={open} setOpen={setOpen} searchQuery={searchQuery} setSearchQuery={setSearchQuery} searchFunc={searchFunc}/>
+        <First_Filter searchQuery={searchQuery} setSearchQuery={setSearchQuery} searchFunc={searchFunc}/>
         <div className="w-full h-full relative">
           <Head_Picture />
           <div className=" w-4/5  mx-auto !z-[9000] max-w-[1400px]">
@@ -39,7 +42,7 @@ const ContactPage = () => {
               </div>
             </div>
           </div>
-          <Selected_Product />
+          {/* <Selected_Product /> */}
         </div>
       </div>
     </>
