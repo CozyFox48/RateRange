@@ -1,5 +1,5 @@
 "use client"
-import { useState} from "react";
+import { useState } from "react";
 
 import Head_Picture from "./head_picture";
 import Basic_Search from "./basic_search";
@@ -8,29 +8,32 @@ import Filter_List from "./filter_list";
 import Selected_Product from "./selected_product";
 import First_Filter from "./first_filter";
 import axios from "axios";
+import { apiFetchFeedbacks } from "@/api-requests";
 
 const ContactPage = () => {
- 
-  const [searchQuery, setSearchQuery]=useState({
-    loan_purpose:"",
-    property_purpose:"",
-    rate_type:"",
-    repayment_type:"",
-    total_amount:0,
-    borrow_amount:0,
-    term:0
+
+  const [searchQuery, setSearchQuery] = useState({
+    loan_purpose: "",
+    property_purpose: "",
+    rate_type: "",
+    repayment_type: "",
+    total_amount: 0,
+    borrow_amount: 0,
+    term: 0
   })
 
-  const searchFunc=async ()=>{
-    const response=await fetch('/api');
-    const data=await response.json();
+  const searchFunc = async () => {
+    const feedbacks = await apiFetchFeedbacks(1, 10);
+    console.log(feedbacks);
+    const response = await fetch('/api/search');
+    const data = await response.json();
     console.log(data);
   }
 
   return (
     <>
       <div className="flex flex-row justify-center w-full">
-        <First_Filter searchQuery={searchQuery} setSearchQuery={setSearchQuery} searchFunc={searchFunc}/>
+        <First_Filter searchQuery={searchQuery} setSearchQuery={setSearchQuery} searchFunc={searchFunc} />
         <div className="w-full h-full relative">
           <Head_Picture />
           <div className=" w-4/5  mx-auto !z-[9000] max-w-[1400px]">
