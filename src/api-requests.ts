@@ -1,4 +1,5 @@
 import { Feedback } from "@prisma/client";
+import SearchQuery from "./types/search";
 
 export type ErrorResponse = {
   status: string;
@@ -74,6 +75,23 @@ export async function apiFetchFeedbacks(
     (data) => data.feedbacks
   );
 }
+
+
+export async function mainSearch(query: SearchQuery): Promise<number> {
+  const response = await fetch(
+    `${SERVER_ENDPOINT}/api/all_product?${getQueryString(query)}`
+  );
+
+  return handleResponse<FeedbackListResponse>(response).then((data) => 5);
+}
+
+// Utility function to convert the query object to a query string
+const getQueryString = (query: SearchQuery) =>
+  Object.entries(query)
+    .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+    .join("&");
+
+
 
 export async function apiDeleteFeedback(feedbackId: string): Promise<void> {
   const response = await fetch(

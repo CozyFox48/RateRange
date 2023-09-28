@@ -8,7 +8,7 @@ import Filter_List from "./filter_list";
 import Selected_Product from "./selected_product";
 import First_Filter from "./first_filter";
 import axios from "axios";
-import { apiFetchFeedbacks } from "@/api-requests";
+import { mainSearch } from "@/api-requests";
 
 const ContactPage = () => {
 
@@ -23,11 +23,8 @@ const ContactPage = () => {
   })
 
   const searchFunc = async () => {
-    const feedbacks = await apiFetchFeedbacks(1, 10);
+    const feedbacks = await mainSearch(searchQuery);
     console.log(feedbacks);
-    const response = await fetch('/api/search');
-    const data = await response.json();
-    console.log(data);
   }
 
   return (

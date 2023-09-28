@@ -1,13 +1,13 @@
 const axios = require('axios');
 const dbConnect = require("./../../server/dbConnect");
 const Product = require("./../../server/model/product");
-const digitalEligibility=["MAX_AGE", "MIN_AGE", "MIN_INCOME", "MIN_TURNOVER"];
+const digitalEligibility = ["MAX_AGE", "MIN_AGE", "MIN_INCOME", "MIN_TURNOVER"];
 
 async function fetchData() {
     await dbConnect();
 
     try {
-        const productsList = await Product.find({},"mainInfo bankUrl");
+        const productsList = await Product.find({}, "mainInfo bankUrl");
         let errorList = [];
         for (const eachProduct of productsList) {
             let response;
@@ -35,19 +35,19 @@ async function fetchData() {
             try {
                 const productsDetail = response.data.data;
                 // console.log("productsDetail",productsDetail)
-  if (Object.keys(productsDetail).length > 0) {
+                if (Object.keys(productsDetail).length > 0) {
                     try {
-                        if(productsDetail.eligibility && productsDetail.eligibility.length>0){
-                            productsDetail.eligibility=productsDetail.eligibility.filter(item=>{
-                                const isDigit=digitalEligibility.includes(item.eligibilityType);
-                                if(isDigit){
-                                    productsDetail[item.eligibilityType]=item.additionalValue;
-                                    flag=true;
+                        if (productsDetail.eligibility && productsDetail.eligibility.length > 0) {
+                            productsDetail.eligibility = productsDetail.eligibility.filter(item => {
+                                const isDigit = digitalEligibility.includes(item.eligibilityType);
+                                if (isDigit) {
+                                    productsDetail[item.eligibilityType] = item.additionalValue;
+                                    flag = true;
                                 }
                                 return !isDigit;
                             })
                         }
-                        
+
                         const productDoc = new Product(eachProduct); // Convert eachProduct to a Mongoose document
                         await Product.updateOne({ _id: eachProduct._id }, { ...productDoc.toObject(), ...productsDetail });
                     } catch (error) {

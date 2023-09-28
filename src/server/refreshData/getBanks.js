@@ -1,6 +1,6 @@
 const axios = require('axios');
 const dbConnect=require("./../../server/dbConnect");
-const Bank =require("./../../server/model/bank")
+const Bank =require("./../../server/model/bank");
 
 async function fetchData() {
   await dbConnect();
