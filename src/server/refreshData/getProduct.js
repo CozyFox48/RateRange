@@ -45,14 +45,14 @@ async function fetchData() {
                                     {
                                         ...productDoc.toObject(),
                                         mainInfo: { ...eachProduct },
-                                        bankName: eachBank.brandName,
+                                        bank: eachBank._id,
                                         bankUrl: eachBank.publicBaseUri
                                     });
                             } else {
                                 await Product.create(
                                     {
                                         mainInfo: { ...eachProduct },
-                                        bankName: eachBank.brandName,
+                                        bank: eachBank._id,
                                         bankUrl: eachBank.publicBaseUri
                                     });
                             }

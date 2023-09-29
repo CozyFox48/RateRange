@@ -1,7 +1,6 @@
 
 import { NextRequest, NextResponse } from "next/server";
-const dbConnect = require("./../../server/dbConnect");
-const Product = require("./../../server/model/product");
+const dbConnect = require("./../../../server/dbConnect");
 
 export async function GET(request: NextRequest) {
   try {

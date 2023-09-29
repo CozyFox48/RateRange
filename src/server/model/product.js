@@ -108,8 +108,9 @@ const UserSchema = new mongoose.Schema({
         type: String
     },
     //get from parent-bank
-    bankName: {
-        type: String
+    bank: {
+        type: mongoose.Schema.Types.ObjectId,
+        refer: 'bank'
     },
     bankUrl: {
         type: String

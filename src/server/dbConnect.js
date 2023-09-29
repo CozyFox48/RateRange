@@ -1,5 +1,5 @@
 const mongoose=require ('mongoose');
-const config=require("../global.config");
+const config=require("./../../global.config");
 
 const MONGODB_URI = config.HOST+'/'+config.DB;
 
