@@ -174,7 +174,7 @@ async function fetchData() {
     
                                 // console.log("rate", aggregate_result, eachRate);
     
-                                await Aggregate_mortgage.create({
+                                Aggregate_mortgage.create({
                                     ...aggregate_result,
                                     ...pre_config
                                 })
@@ -186,7 +186,7 @@ async function fetchData() {
 
 
                         const productDoc = new Product(eachProduct); // Convert eachProduct to a Mongoose document
-                        await Product.updateOne({ _id: eachProduct._id }, { ...productDoc.toObject(), ...productsDetail });
+                        Product.updateOne({ _id: eachProduct._id }, { ...productDoc.toObject(), ...productsDetail });
                     } catch (error) {
                         console.log(error)
                     }

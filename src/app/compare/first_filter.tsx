@@ -1,20 +1,22 @@
 "use client"
 import { Dialog, Transition } from '@headlessui/react'
 import { useRef, Fragment, useState } from "react";
-import Image from "next/image"
+import Image from "next/image";
+
 type ChildComponentProps = {
-    searchQuery:any;
+    searchQuery: any;
     setSearchQuery: React.Dispatch<React.SetStateAction<any>>;
-    searchFunc:()=>void;
+    searchFunc: () => void;
 };
-const First_Filter: React.FC<ChildComponentProps> = ({  searchQuery, setSearchQuery,searchFunc }) => {
+
+const First_Filter: React.FC<ChildComponentProps> = ({ searchQuery, setSearchQuery, searchFunc }) => {
 
     const [agreePolicy, setAgreePolicy] = useState(false);
     const [open, setOpen] = useState(true);
 
     return (
         <Transition.Root show={open} as={Fragment}>
-            <Dialog as="div" className="relative z-10 "  onClose={()=>{}}>
+            <Dialog as="div" className="relative z-10 " onClose={() => { }}>
                 <Transition.Child
                     as={Fragment}
                     enter="ease-out duration-300"
@@ -60,42 +62,31 @@ const First_Filter: React.FC<ChildComponentProps> = ({  searchQuery, setSearchQu
                                 </div>
                                 <div className='grid grid-cols-2 gap-x-[40px] gap-y-[0px] mx-[5%] mb-[3%]'>
                                     <div className=''>
-                                        <div className='w-full m-[5px] font-bold text-xl'>Loan Purpose</div>
-                                        <div className='flex w-full gap-[10px]'>
-                                            <button
-                                                type="button"
-                                                className={`inline-flex w-1/2 justify-center rounded-md  px-3 py-2 text-md font-semibold  border-gray border-[1px] 
-                                                ${searchQuery.loan_purpose==="new purchase"?"bg-primary":""}`}
-                                                onClick={()=>{setSearchQuery({...searchQuery, loan_purpose:"new purchase"})}}
-                                            >
-                                                New purchase
-                                            </button>
-                                            <button
-                                                type="button"
-                                                className={`inline-flex w-1/2 justify-center rounded-md  px-3 py-2 text-md font-semibold  border-gray border-[1px] 
-                                                ${searchQuery.loan_purpose==="refinance"?"bg-primary":""}`}
-                                                onClick={()=>{setSearchQuery({...searchQuery, loan_purpose:"refinance"})}}
-                                            >
-                                                Refinance
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div className=''>
                                         <div className='w-full m-[5px] font-bold text-xl'>Property Purpose</div>
                                         <div className='flex w-full gap-[10px]'>
                                             <button
                                                 type="button"
                                                 className={`inline-flex w-1/2 justify-center rounded-md  px-3 py-2 text-md font-semibold  border-gray border-[1px] 
-                                                ${searchQuery.property_purpose==="investment"?"bg-primary":""}`}
-                                                onClick={()=>{setSearchQuery({...searchQuery, property_purpose:"investment"})}}
+                                                ${searchQuery.property_purpose === "investment" ? "bg-primary" : ""}`}
+                                                onClick={() => {
+                                                    setSearchQuery({
+                                                        ...searchQuery, property_purpose:
+                                                            searchQuery.property_purpose === "investment" ? "undefined" : "investment"
+                                                    })
+                                                }}
                                             >
                                                 Investment
                                             </button>
                                             <button
                                                 type="button"
                                                 className={`inline-flex w-1/2 justify-center rounded-md  px-3 py-2 text-md font-semibold  border-gray border-[1px] 
-                                                ${searchQuery.property_purpose==="owned"?"bg-primary":""}`}
-                                                onClick={()=>{setSearchQuery({...searchQuery, property_purpose:"owned"})}}
+                                                ${searchQuery.property_purpose === "owned" ? "bg-primary" : ""}`}
+                                                onClick={() => {
+                                                    setSearchQuery({
+                                                        ...searchQuery, property_purpose:
+                                                            searchQuery.property_purpose === "owned" ? "undefined" : "owned"
+                                                    })
+                                                }}
                                             >
                                                 Owned
                                             </button>
@@ -107,16 +98,26 @@ const First_Filter: React.FC<ChildComponentProps> = ({  searchQuery, setSearchQu
                                             <button
                                                 type="button"
                                                 className={`inline-flex w-1/2 justify-center rounded-md  px-3 py-2 text-md font-semibold  border-gray border-[1px] 
-                                                ${searchQuery.rate_type==="fixed"?"bg-primary":""}`}
-                                                onClick={()=>{setSearchQuery({...searchQuery, rate_type:"fixed"})}}
+                                                ${searchQuery.rate_type === "fixed" ? "bg-primary" : ""}`}
+                                                onClick={() => {
+                                                    setSearchQuery({
+                                                        ...searchQuery, rate_type:
+                                                            searchQuery.rate_type === "fixed" ? "undefined" : "fixed"
+                                                    })
+                                                }}
                                             >
                                                 Fixed
                                             </button>
                                             <button
                                                 type="button"
                                                 className={`inline-flex w-1/2 justify-center rounded-md  px-3 py-2 text-md font-semibold  border-gray border-[1px] 
-                                                ${searchQuery.rate_type==="variable"?"bg-primary":""}`}
-                                                onClick={()=>{setSearchQuery({...searchQuery, rate_type:"variable"})}}
+                                                ${searchQuery.rate_type === "variable" ? "bg-primary" : ""}`}
+                                                onClick={() => {
+                                                    setSearchQuery({
+                                                        ...searchQuery, rate_type:
+                                                            searchQuery.rate_type === "variable" ? "undefined" : "variable"
+                                                    })
+                                                }}
                                             >
                                                 Variable
                                             </button>
@@ -128,18 +129,53 @@ const First_Filter: React.FC<ChildComponentProps> = ({  searchQuery, setSearchQu
                                             <button
                                                 type="button"
                                                 className={`inline-flex w-1/2 justify-center rounded-md  px-3 py-2 text-md font-semibold  border-gray border-[1px] 
-                                                ${searchQuery.repayment_type==="both"?"bg-primary":""}`}
-                                                onClick={()=>{setSearchQuery({...searchQuery, repayment_type:"both"})}}
+                                                ${searchQuery.repayment_type === "both" ? "bg-primary" : ""}`}
+                                                onClick={() => {
+                                                    setSearchQuery({
+                                                        ...searchQuery, repayment_type:
+                                                            searchQuery.repayment_type === "both" ? "undefined" : "both"
+                                                    })
+                                                }}
                                             >
                                                 Principle and Interest
                                             </button>
                                             <button
                                                 type="button"
                                                 className={`inline-flex w-1/2 justify-center rounded-md  px-3 py-2 text-md font-semibold  border-gray border-[1px] 
-                                                ${searchQuery.repayment_type==="interest_only"?"bg-primary":""}`}
-                                                onClick={()=>{setSearchQuery({...searchQuery, repayment_type:"interest_only"})}}
+                                                ${searchQuery.repayment_type === "interest_only" ? "bg-primary" : ""}`}
+                                                onClick={() => {
+                                                    setSearchQuery({
+                                                        ...searchQuery, repayment_type:
+                                                            searchQuery.repayment_type === "interest_only" ? "undefined" : "interest_only"
+                                                    })
+                                                }}
                                             >
                                                 Interest Only
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className=''>
+                                        <div className='w-full m-[5px] font-bold text-xl'>Do not need Fee</div>
+                                        <div className='flex w-full gap-[10px]'>
+                                            <button
+                                                type="button"
+                                                className={`inline-flex w-1/2 justify-center rounded-md  px-3 py-2 text-md font-semibold  border-gray border-[1px] 
+                                                ${searchQuery.fee_ongoing ? "bg-primary" : ""}`}
+                                                onClick={() => {
+                                                    setSearchQuery({ ...searchQuery, fee_ongoing: searchQuery.fee_ongoing ? false : true })
+                                                }}
+                                            >
+                                                Ongoing
+                                            </button>
+                                            <button
+                                                type="button"
+                                                className={`inline-flex w-1/2 justify-center rounded-md  px-3 py-2 text-md font-semibold  border-gray border-[1px] 
+                                                ${searchQuery.fee_upfront ? "bg-primary" : ""}`}
+                                                onClick={() => {
+                                                    setSearchQuery({ ...searchQuery, fee_upfront: searchQuery.fee_upfront ? false : true })
+                                                }}
+                                            >
+                                                Upfront
                                             </button>
                                         </div>
                                     </div>
@@ -149,7 +185,7 @@ const First_Filter: React.FC<ChildComponentProps> = ({  searchQuery, setSearchQu
                                             <div className='flex w-full gap-[10px]'>
                                                 <input
                                                     type="number"
-                                                    onChange={(e)=>{setSearchQuery({...searchQuery, total_amount:e.target.value})}}
+                                                    onChange={(e) => { setSearchQuery({ ...searchQuery, total_amount: e.target.value }) }}
                                                     value={searchQuery.total_amount}
                                                     className="inline-flex w-full justify-center rounded-md  px-3 py-2 text-md font-semibold  border-gray border-[1px]"
                                                 />
@@ -160,7 +196,7 @@ const First_Filter: React.FC<ChildComponentProps> = ({  searchQuery, setSearchQu
                                             <div className='flex w-full gap-[10px]'>
                                                 <input
                                                     type="number"
-                                                    onChange={(e)=>{setSearchQuery({...searchQuery, borrow_amount:e.target.value})}}
+                                                    onChange={(e) => { setSearchQuery({ ...searchQuery, borrow_amount: e.target.value }) }}
                                                     value={searchQuery.borrow_amount}
                                                     className="inline-flex w-full justify-center rounded-md  px-3 py-2 text-md font-semibold  border-gray border-[1px]"
                                                 />
@@ -173,7 +209,7 @@ const First_Filter: React.FC<ChildComponentProps> = ({  searchQuery, setSearchQu
                                             <div className='flex w-full gap-[10px]'>
                                                 <input
                                                     type="number"
-                                                    onChange={(e)=>{setSearchQuery({...searchQuery, term:e.target.value})}}
+                                                    onChange={(e) => { setSearchQuery({ ...searchQuery, term: e.target.value }) }}
                                                     value={searchQuery.term}
                                                     className="inline-flex w-full justify-center rounded-md  px-3 py-2 text-md font-semibold  border-gray border-[1px]"
                                                 />
@@ -183,9 +219,73 @@ const First_Filter: React.FC<ChildComponentProps> = ({  searchQuery, setSearchQu
                                             <div className='w-full m-[5px] font-bold text-xl'>Location</div>
                                             <div className='flex w-full gap-[10px]'>
                                                 <input
-                                                    type="number"
+                                                    type="string"
                                                     className="inline-flex w-full justify-center rounded-md  px-3 py-2 text-md font-semibold  border-gray border-[1px]"
                                                 />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className='grid grid-cols-2 gap-[10px]'>
+                                        <div>
+                                            <div className='w-full m-[5px] font-bold text-xl'>Feature</div>
+                                            <div className='flex w-full gap-[10px]'>
+                                                <button
+                                                    type="button"
+                                                    className={`w-full inline-flex w-1/2 justify-center rounded-md  px-3 py-2 text-md font-semibold  border-gray border-[1px] 
+                                                ${searchQuery.feature_offset ? "bg-primary" : ""}`}
+                                                    onClick={() => {
+                                                        setSearchQuery({ ...searchQuery, feature_offset: searchQuery.feature_offset ? false : true })
+                                                    }}
+                                                >
+                                                    OFFSET
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div className='w-full m-[5px] font-bold text-xl'>Feature</div>
+                                            <div className='flex w-full gap-[10px]'>
+                                                <button
+                                                    type="button"
+                                                    className={`w-full inline-flex w-1/2 justify-center rounded-md  px-3 py-2 text-md font-semibold  border-gray border-[1px] 
+                                                ${searchQuery.feature_redraw ? "bg-primary" : ""}`}
+                                                    onClick={() => {
+                                                        setSearchQuery({ ...searchQuery, feature_redraw: searchQuery.feature_redraw ? false : true })
+                                                    }}
+                                                >
+                                                    REDRAW
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className='grid grid-cols-2 gap-[10px]'>
+                                        <div>
+                                            <div className='w-full m-[5px] font-bold text-xl'>Feature</div>
+                                            <div className='flex w-full gap-[10px]'>
+                                                <button
+                                                    type="button"
+                                                    className={`w-full inline-flex w-1/2 justify-center rounded-md  px-3 py-2 text-md font-semibold  border-gray border-[1px] 
+                                                ${searchQuery.feature_extra ? "bg-primary" : ""}`}
+                                                    onClick={() => {
+                                                        setSearchQuery({ ...searchQuery, feature_extra: searchQuery.feature_extra ? false : true })
+                                                    }}
+                                                >
+                                                    EXTRA_REPAYMENTS
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div className='w-full m-[5px] font-bold text-xl'>Feature</div>
+                                            <div className='flex w-full gap-[10px]'>
+                                                <button
+                                                    type="button"
+                                                    className={`w-full inline-flex w-1/2 justify-center rounded-md  px-3 py-2 text-md font-semibold  border-gray border-[1px] 
+                                                ${searchQuery.feature_cashback ? "bg-primary" : ""}`}
+                                                    onClick={() => {
+                                                        setSearchQuery({ ...searchQuery, feature_cashback: searchQuery.feature_cashback ? false : true })
+                                                    }}
+                                                >
+                                                    CASHBACK OFFER
+                                                </button>
                                             </div>
                                         </div>
                                     </div>

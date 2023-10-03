@@ -78,8 +78,9 @@ export async function apiFetchFeedbacks(
 
 
 export async function mainSearch(query: SearchQuery): Promise<number> {
+  
   const response = await fetch(
-    `${SERVER_ENDPOINT}/api/all_product?${getQueryString(query)}`
+    `/api/mortgage_search?${getQueryString(query)}`
   );
 
   return handleResponse<FeedbackListResponse>(response).then((data) => 5);

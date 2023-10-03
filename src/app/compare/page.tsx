@@ -7,19 +7,25 @@ import Product_List from "./product_list";
 import Filter_List from "./filter_list";
 import Selected_Product from "./selected_product";
 import First_Filter from "./first_filter";
-import axios from "axios";
 import { mainSearch } from "@/api-requests";
 
 const ContactPage = () => {
 
   const [searchQuery, setSearchQuery] = useState({
-    loan_purpose: "",
-    property_purpose: "",
-    rate_type: "",
-    repayment_type: "",
+    fee_ongoing: false,
+    fee_upfront:false,
+    age_restriction:false,
+    property_purpose: "undefined",
+    rate_type: "undefined",
+    repayment_type: "undefined",
     total_amount: 0,
     borrow_amount: 0,
-    term: 0
+    term: 0,
+    period:0,
+    feature_offset: false,
+    feature_redraw: false,
+    feature_extra: false,
+    feature_cashback: false
   })
 
   const searchFunc = async () => {

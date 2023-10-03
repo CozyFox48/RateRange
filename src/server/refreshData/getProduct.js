@@ -41,7 +41,7 @@ async function fetchData() {
                             const existing = await Product.findOne({ 'mainInfo.productId': eachProduct.productId });
                             if (existing) {
                                 const productDoc = new Product(existing);
-                                await Product.updateOne({ _id: existing._id },
+                                Product.updateOne({ _id: existing._id },
                                     {
                                         ...productDoc.toObject(),
                                         mainInfo: { ...eachProduct },
@@ -49,7 +49,7 @@ async function fetchData() {
                                         bankUrl: eachBank.publicBaseUri
                                     });
                             } else {
-                                await Product.create(
+                                Product.create(
                                     {
                                         mainInfo: { ...eachProduct },
                                         bank: eachBank._id,

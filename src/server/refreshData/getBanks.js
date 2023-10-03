@@ -22,12 +22,12 @@ async function fetchData() {
       
       if (existingDocument) {
         // console.log("existing", brand, existingDocument);
-        await Bank.updateOne({ _id: existingDocument._id },brand);
+        Bank.updateOne({ _id: existingDocument._id },brand);
         // Update the existing document with the modified brand object
     
       } else {
         // console.log("new", brand);
-        await Bank.create( brand);
+         Bank.create( brand);
        
       }
     }
