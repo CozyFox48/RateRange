@@ -11,22 +11,22 @@ import { mainSearch } from "@/api-requests";
 
 const ContactPage = () => {
 
-  const [searchQuery, setSearchQuery] = useState({
-    fee_ongoing: false,
-    fee_upfront:false,
-    age_restriction:false,
-    property_purpose: "undefined",
-    rate_type: "undefined",
-    repayment_type: "undefined",
-    total_amount: 0,
-    borrow_amount: 0,
-    term: 0,
-    period:0,
-    feature_offset: false,
-    feature_redraw: false,
-    feature_extra: false,
-    feature_cashback: false
-  })
+    const [searchQuery, setSearchQuery] = useState({
+      fee_ongoing: null,
+      fee_upfront:null,
+      age_restriction:null,
+      loanPurpose: "undefined",
+      rateType: "undefined",
+      repaymentType: "undefined",
+      total_amount: 0,
+      borrow_amount: 0,
+      term: 0,
+      period:0,
+      feature_offset: null,
+      feature_redraw: null,
+      feature_extra: null,
+      feature_cashback: null
+    })
 
   const searchFunc = async () => {
     const feedbacks = await mainSearch(searchQuery);

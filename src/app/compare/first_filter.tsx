@@ -63,15 +63,15 @@ const First_Filter: React.FC<ChildComponentProps> = ({ searchQuery, setSearchQue
                                 <div className='grid grid-cols-2 gap-x-[40px] gap-y-[0px] mx-[5%] mb-[3%]'>
                                     <div className=''>
                                         <div className='w-full m-[5px] font-bold text-xl'>Property Purpose</div>
-                                        <div className='flex w-full gap-[10px]'>
+                                        <div className='flex w-full '>
                                             <button
                                                 type="button"
-                                                className={`inline-flex w-1/2 justify-center rounded-md  px-3 py-2 text-md font-semibold  border-gray border-[1px] 
-                                                ${searchQuery.property_purpose === "investment" ? "bg-primary" : ""}`}
+                                                className={`inline-flex w-1/2 justify-center rounded-l-full px-3 py-2 text-md font-semibold  border-gray border-[1px] 
+                                                ${searchQuery.loanPurpose === "invest" ? "bg-primary" : ""}`}
                                                 onClick={() => {
                                                     setSearchQuery({
-                                                        ...searchQuery, property_purpose:
-                                                            searchQuery.property_purpose === "investment" ? "undefined" : "investment"
+                                                        ...searchQuery, loanPurpose:
+                                                            searchQuery.loanPurpose === "invest" ? "undefined" : "invest"
                                                     })
                                                 }}
                                             >
@@ -79,78 +79,16 @@ const First_Filter: React.FC<ChildComponentProps> = ({ searchQuery, setSearchQue
                                             </button>
                                             <button
                                                 type="button"
-                                                className={`inline-flex w-1/2 justify-center rounded-md  px-3 py-2 text-md font-semibold  border-gray border-[1px] 
-                                                ${searchQuery.property_purpose === "owned" ? "bg-primary" : ""}`}
+                                                className={`inline-flex w-1/2 justify-center rounded-r-full  px-3 py-2 text-md font-semibold  border-gray border-[1px] 
+                                                ${searchQuery.loanPurpose === "owned" ? "bg-primary" : ""}`}
                                                 onClick={() => {
                                                     setSearchQuery({
-                                                        ...searchQuery, property_purpose:
-                                                            searchQuery.property_purpose === "owned" ? "undefined" : "owned"
+                                                        ...searchQuery, loanPurpose:
+                                                            searchQuery.loanPurpose === "owned" ? "undefined" : "owned"
                                                     })
                                                 }}
                                             >
                                                 Owned
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div >
-                                        <div className='w-full m-[5px] font-bold text-xl'>Rate Type</div>
-                                        <div className='flex w-full gap-[10px]'>
-                                            <button
-                                                type="button"
-                                                className={`inline-flex w-1/2 justify-center rounded-md  px-3 py-2 text-md font-semibold  border-gray border-[1px] 
-                                                ${searchQuery.rate_type === "fixed" ? "bg-primary" : ""}`}
-                                                onClick={() => {
-                                                    setSearchQuery({
-                                                        ...searchQuery, rate_type:
-                                                            searchQuery.rate_type === "fixed" ? "undefined" : "fixed"
-                                                    })
-                                                }}
-                                            >
-                                                Fixed
-                                            </button>
-                                            <button
-                                                type="button"
-                                                className={`inline-flex w-1/2 justify-center rounded-md  px-3 py-2 text-md font-semibold  border-gray border-[1px] 
-                                                ${searchQuery.rate_type === "variable" ? "bg-primary" : ""}`}
-                                                onClick={() => {
-                                                    setSearchQuery({
-                                                        ...searchQuery, rate_type:
-                                                            searchQuery.rate_type === "variable" ? "undefined" : "variable"
-                                                    })
-                                                }}
-                                            >
-                                                Variable
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div >
-                                        <div className='w-full m-[5px] font-bold text-xl'>Repayment Type</div>
-                                        <div className='flex w-full gap-[10px]'>
-                                            <button
-                                                type="button"
-                                                className={`inline-flex w-1/2 justify-center rounded-md  px-3 py-2 text-md font-semibold  border-gray border-[1px] 
-                                                ${searchQuery.repayment_type === "both" ? "bg-primary" : ""}`}
-                                                onClick={() => {
-                                                    setSearchQuery({
-                                                        ...searchQuery, repayment_type:
-                                                            searchQuery.repayment_type === "both" ? "undefined" : "both"
-                                                    })
-                                                }}
-                                            >
-                                                Principle and Interest
-                                            </button>
-                                            <button
-                                                type="button"
-                                                className={`inline-flex w-1/2 justify-center rounded-md  px-3 py-2 text-md font-semibold  border-gray border-[1px] 
-                                                ${searchQuery.repayment_type === "interest_only" ? "bg-primary" : ""}`}
-                                                onClick={() => {
-                                                    setSearchQuery({
-                                                        ...searchQuery, repayment_type:
-                                                            searchQuery.repayment_type === "interest_only" ? "undefined" : "interest_only"
-                                                    })
-                                                }}
-                                            >
-                                                Interest Only
                                             </button>
                                         </div>
                                     </div>
@@ -160,9 +98,13 @@ const First_Filter: React.FC<ChildComponentProps> = ({ searchQuery, setSearchQue
                                             <button
                                                 type="button"
                                                 className={`inline-flex w-1/2 justify-center rounded-md  px-3 py-2 text-md font-semibold  border-gray border-[1px] 
-                                                ${searchQuery.fee_ongoing ? "bg-primary" : ""}`}
+                                                ${searchQuery.fee_ongoing === true ? "bg-primary" :
+                                                        searchQuery.fee_ongoing === false ? "bg-red" : ""}`}
                                                 onClick={() => {
-                                                    setSearchQuery({ ...searchQuery, fee_ongoing: searchQuery.fee_ongoing ? false : true })
+                                                    setSearchQuery({
+                                                        ...searchQuery,
+                                                        fee_ongoing: searchQuery.fee_ongoing === null ? true : searchQuery.fee_ongoing === true ? false : null
+                                                    })
                                                 }}
                                             >
                                                 Ongoing
@@ -170,15 +112,53 @@ const First_Filter: React.FC<ChildComponentProps> = ({ searchQuery, setSearchQue
                                             <button
                                                 type="button"
                                                 className={`inline-flex w-1/2 justify-center rounded-md  px-3 py-2 text-md font-semibold  border-gray border-[1px] 
-                                                ${searchQuery.fee_upfront ? "bg-primary" : ""}`}
+                                              
+                                                ${searchQuery.fee_upfront === true ? "bg-primary" :
+                                                        searchQuery.fee_upfront === false ? "bg-red" : ""}`}
                                                 onClick={() => {
-                                                    setSearchQuery({ ...searchQuery, fee_upfront: searchQuery.fee_upfront ? false : true })
+                                                    setSearchQuery({
+                                                        ...searchQuery,
+                                                        fee_upfront: searchQuery.fee_upfront === null ? true : searchQuery.fee_upfront === true ? false : null
+                                                    });
                                                 }}
                                             >
                                                 Upfront
                                             </button>
                                         </div>
                                     </div>
+                                    <div >
+                                        <div className='w-full m-[5px] font-bold text-xl'>Rate Type</div>
+                                        <div className='flex w-full '>
+                                            <button
+                                                type="button"
+                                                className={`inline-flex w-1/2 justify-center rounded-l-full  px-3 py-2 text-md font-semibold  border-gray border-[1px] 
+                                                ${searchQuery.rateType === "fixed" ? "bg-primary" : ""}`}
+                                                onClick={() => {
+                                                    setSearchQuery({
+                                                        ...searchQuery, rateType:
+                                                            searchQuery.rateType === "fixed" ? "undefined" : "fixed"
+                                                    })
+                                                }}
+                                            >
+                                                Fixed
+                                            </button>
+                                            <button
+                                                type="button"
+                                                className={`inline-flex w-1/2 justify-center rounded-r-full  px-3 py-2 text-md font-semibold  border-gray border-[1px] 
+                                                ${searchQuery.rateType === "variable" ? "bg-primary" : ""}`}
+                                                onClick={() => {
+                                                    setSearchQuery({
+                                                        ...searchQuery, rateType:
+                                                            searchQuery.rateType === "variable" ? "undefined" : "variable"
+                                                    })
+                                                }}
+                                            >
+                                                Variable
+                                            </button>
+                                        </div>
+                                    </div>
+
+
                                     <div className='grid grid-cols-2 gap-[10px]'>
                                         <div>
                                             <div className='w-full m-[5px] font-bold text-xl'>Total Amount</div>
@@ -203,6 +183,37 @@ const First_Filter: React.FC<ChildComponentProps> = ({ searchQuery, setSearchQue
                                             </div>
                                         </div>
                                     </div>
+                                    <div >
+                                        <div className='w-full m-[5px] font-bold text-xl'>Repayment Type</div>
+                                        <div className='flex w-full'>
+                                            <button
+                                                type="button"
+                                                className={`inline-flex w-1/2 justify-center rounded-l-full  px-3 py-2 text-md font-semibold  border-gray border-[1px] 
+                                                ${searchQuery.repaymentType === "I&P" ? "bg-primary" : ""}`}
+                                                onClick={() => {
+                                                    setSearchQuery({
+                                                        ...searchQuery, repaymentType:
+                                                            searchQuery.repaymentType === "I&P" ? "undefined" : "I&P"
+                                                    })
+                                                }}
+                                            >
+                                                Principle and Interest
+                                            </button>
+                                            <button
+                                                type="button"
+                                                className={`inline-flex w-1/2 justify-center rounded-r-full  px-3 py-2 text-md font-semibold  border-gray border-[1px] 
+                                                ${searchQuery.repaymentType === "Ionly" ? "bg-primary" : ""}`}
+                                                onClick={() => {
+                                                    setSearchQuery({
+                                                        ...searchQuery, repaymentType:
+                                                            searchQuery.repaymentType === "Ionly" ? "undefined" : "Ionly"
+                                                    })
+                                                }}
+                                            >
+                                                Interest Only
+                                            </button>
+                                        </div>
+                                    </div>
                                     <div className='grid grid-cols-2 gap-[10px]'>
                                         <div>
                                             <div className='w-full m-[5px] font-bold text-xl'>Term</div>
@@ -225,7 +236,7 @@ const First_Filter: React.FC<ChildComponentProps> = ({ searchQuery, setSearchQue
                                             </div>
                                         </div>
                                     </div>
-                                    <div className='grid grid-cols-2 gap-[10px]'>
+                                    {/* <div className='grid grid-cols-2 gap-[10px]'>
                                         <div>
                                             <div className='w-full m-[5px] font-bold text-xl'>Feature</div>
                                             <div className='flex w-full gap-[10px]'>
@@ -288,7 +299,7 @@ const First_Filter: React.FC<ChildComponentProps> = ({ searchQuery, setSearchQue
                                                 </button>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> */}
                                 </div>
                                 <div className="bg-gray-50 mx-[3%] mb-[20px] flex justify-between sm:flex-row-reverse sm:px-6 align-center">
                                     <button

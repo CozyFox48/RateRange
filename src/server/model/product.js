@@ -15,7 +15,7 @@ const treatString2Number = (value) => {
     return result;
 }
 
-const UserSchema = new mongoose.Schema({
+const ProductListSchema = new mongoose.Schema({
     //primary
     mainInfo: {
         productId: {
@@ -241,4 +241,4 @@ const UserSchema = new mongoose.Schema({
     }]
 });
 
-module.exports = mongoose.models.User || mongoose.model('product', UserSchema);
+module.exports = mongoose.models.ProductListSchema || mongoose.model('product', ProductListSchema);

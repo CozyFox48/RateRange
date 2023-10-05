@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const UserSchema = new mongoose.Schema({
+const BankListSchema = new mongoose.Schema({
   dataHolderBrandId: {
     type: String
   },
@@ -36,4 +36,4 @@ const UserSchema = new mongoose.Schema({
   
 });
 
-module.exports = mongoose.models.User || mongoose.model('bank', UserSchema);
+module.exports = mongoose.models.BankListSchema || mongoose.model('bank', BankListSchema);

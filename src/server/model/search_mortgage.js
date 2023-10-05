@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const UserSchema = new mongoose.Schema({
+const MortgageSearchIndexSchema = new mongoose.Schema({
     bank: {
         type: mongoose.Schema.Types.ObjectId,
         refer: 'bank'
@@ -9,12 +9,12 @@ const UserSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         refer: 'product'
     },
-    id:Number,
+    id: Number,
     repaymentType: {
         type: String,
         enum: ['I&P', "Ionly"]
     },
-    LVR_min: Number,
+    LVR_min: Number,            
     LVR_max: Number,
     loanPurpose: {
         type: String,
@@ -37,5 +37,4 @@ const UserSchema = new mongoose.Schema({
     feature_cashback: Boolean
 });
 
-
-module.exports = mongoose.models.User || mongoose.model('search_mortgage', UserSchema);
+module.exports = mongoose.models.MortgageSearchIndexSchema || mongoose.model('search_mortgage', MortgageSearchIndexSchema);

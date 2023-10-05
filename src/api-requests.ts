@@ -1,4 +1,4 @@
-import { Feedback } from "@prisma/client";
+
 import SearchQuery from "./types/search";
 
 export type ErrorResponse = {
@@ -8,12 +8,10 @@ export type ErrorResponse = {
 export type FeedbackListResponse = {
   status: string;
   results: number;
-  feedbacks: Feedback[];
 };
 
 export type FeedbackResponse = {
   status: string;
-  data: { feedback: Feedback };
 };
 
 
@@ -35,55 +33,17 @@ async function handleResponse<T>(response: Response): Promise<T> {
   return data as T;
 }
 
-export async function apiCreateFeedback(
-  feedbackData: string
-): Promise<Feedback> {
-  const response = await fetch(`${SERVER_ENDPOINT}/api/feedbacks/`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: feedbackData,
-  });
-
-  return handleResponse<FeedbackResponse>(response).then(
-    (data) => data.data.feedback
-  );
-}
-
-export async function apiFetchSingleFeedback(
-  feedbackId: string
-): Promise<Feedback> {
-  const response = await fetch(
-    `${SERVER_ENDPOINT}/api/feedbacks/${feedbackId}`
-  );
-
-  return handleResponse<FeedbackResponse>(response).then(
-    (data) => data.data.feedback
-  );
-}
-
-export async function apiFetchFeedbacks(
-  page: number,
-  limit: number
-): Promise<Feedback[]> {
-  const response = await fetch(
-    `${SERVER_ENDPOINT}/api/feedbacks?page=${page}&limit=${limit}`
-  );
-
-  return handleResponse<FeedbackListResponse>(response).then(
-    (data) => data.feedbacks
-  );
-}
 
 
-export async function mainSearch(query: SearchQuery): Promise<number> {
+
+
+export async function mainSearch(query: SearchQuery): Promise<object> {
   
   const response = await fetch(
     `/api/mortgage_search?${getQueryString(query)}`
   );
 
-  return handleResponse<FeedbackListResponse>(response).then((data) => 5);
+  return handleResponse<FeedbackListResponse>(response).then((data) => data);
 }
 
 // Utility function to convert the query object to a query string
