@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "../../../server/dbConnect";
 import SearchIndexDB from "./../../../server/model/search_mortgage";
 import ProductDB from "./../../../server/model/product";
+import bankDB from "./../../../server/model/bank";
 
 const stringProperties = ["loanPurpose", "rateType", "repaymentType"];
 const booleanProperties = ["fee_ongoing", "fee_upfront", "feature_offset", "feature_redraw", "feature_extra", "feature_cashback"];
@@ -11,20 +12,20 @@ export async function GET(request) {
 
   try {
     const searchParams = new URLSearchParams(request.nextUrl.searchParams);
-    const convertedQuery = { };
+    const convertedQuery = {};
 
     searchParams.forEach((value, key) => {
       if (stringProperties.includes(key) && value !== "undefined") {
         convertedQuery[key] = value;
       } else if (booleanProperties.includes(key)) {
-        if(value==="true"){
-          convertedQuery[key] =true;
+        if (value === "true") {
+          convertedQuery[key] = true;
         }
-        
+
       } else if (key === "borrow_amount") {
         const realValue = Number(value);
         if (realValue > 0) {
-          convertedQuery["$expr"]={"$and":[]};
+          convertedQuery["$expr"] = { "$and": [] };
           convertedQuery.$expr.$and.push({ $gt: [loanAmount_max, realValue] });
           convertedQuery.$expr.$and.push({ $lt: [loanAmount_min, realValue] });
           if (searchParams.has("total_amount")) {
@@ -45,22 +46,33 @@ export async function GET(request) {
 
     });
 
-    console.log(convertedQuery);
-
     const result = await SearchIndexDB.aggregate([
       {
         $match: convertedQuery
-      },{
-        $limit:10
+      }, {
+        $limit: 10
       }
     ])
-    console.log("result",result);
 
-    const finalResult=result.map(async each=>{
-      const productInfo =await ProductDB.findById(each.product_refer);
-      const rateInfo=productInfo.lendingRates[each.id]
-      return {...rateInfo, rate:each.rate,comparisonRate:each.comparisonRate}
-    });
+    let finalResult =[]
+    for(const each of result){
+      
+      const productInfo = await ProductDB.findById(each.product_refer);
+      const rateInfo = productInfo.lendingRates[each.id];
+      const bankInfo = await bankDB.findById(each.bank);
+      
+      finalResult.push({
+        searchIndex: each,
+        rate: rateInfo.rate,
+        comparisonRate: rateInfo.comparisonRate,
+        mainInfo: productInfo.mainInfo,
+        bankname: bankInfo.brandName,
+        bankUri: bankInfo.publicBaseUri,
+        banklogoUri: bankInfo.logoUri
+      })
+    }
+
+
 
     let json_response = {
       status: "success",

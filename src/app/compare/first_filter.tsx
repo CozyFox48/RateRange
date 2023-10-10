@@ -1,6 +1,6 @@
 "use client"
-import { Dialog, Transition } from '@headlessui/react'
-import { useRef, Fragment, useState } from "react";
+import { Dialog, Transition, Popover } from '@headlessui/react'
+import { Fragment, useState } from "react";
 import Image from "next/image";
 
 type ChildComponentProps = {
@@ -9,10 +9,12 @@ type ChildComponentProps = {
     searchFunc: () => void;
 };
 
+
 const First_Filter: React.FC<ChildComponentProps> = ({ searchQuery, setSearchQuery, searchFunc }) => {
 
     const [agreePolicy, setAgreePolicy] = useState(false);
     const [open, setOpen] = useState(true);
+    const [openDialogue, setOpenDialogue] = useState(true);
 
     return (
         <Transition.Root show={open} as={Fragment}>
@@ -40,7 +42,7 @@ const First_Filter: React.FC<ChildComponentProps> = ({ searchQuery, setSearchQue
                             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                         >
-                            <Dialog.Panel className="relative transform overflow-hidden rounded-lg w-full bg-white dark:bg-black text-left shadow-xl transition-all sm:my-8 ">
+                            <Dialog.Panel className="relative transform  rounded-lg w-full bg-white dark:bg-black text-left shadow-xl transition-all sm:my-8 ">
                                 {/* <div className='fixed top-0 left-0 w-full h-full '>
                                     <div className='bg-primary w-full h-[15px]' style={{
                                         transform: 'skewY(-30deg)',
@@ -129,19 +131,52 @@ const First_Filter: React.FC<ChildComponentProps> = ({ searchQuery, setSearchQue
                                     <div >
                                         <div className='w-full m-[5px] font-bold text-xl'>Rate Type</div>
                                         <div className='flex w-full '>
-                                            <button
-                                                type="button"
-                                                className={`inline-flex w-1/2 justify-center rounded-l-full  px-3 py-2 text-md font-semibold  border-gray border-[1px] 
+
+                                            <div className="inline-flex w-1/2">
+                                                <Popover className="w-full relative">
+                                                    {({ open }) => (
+                                                        <>
+                                                            <Popover.Button className="w-full">
+                                                                <button
+                                                                    type="button"
+                                                                    className={` justify-center rounded-l-full w-full px-3 py-2 text-md font-semibold  border-gray border-[1px] 
                                                 ${searchQuery.rateType === "fixed" ? "bg-primary" : ""}`}
-                                                onClick={() => {
-                                                    setSearchQuery({
-                                                        ...searchQuery, rateType:
-                                                            searchQuery.rateType === "fixed" ? "undefined" : "fixed"
-                                                    })
-                                                }}
-                                            >
-                                                Fixed
-                                            </button>
+                                                                    onClick={() => {
+                                                                        setSearchQuery({
+                                                                            ...searchQuery, rateType:
+                                                                                searchQuery.rateType === "fixed" ? "undefined" : "fixed"
+                                                                        })
+                                                                    }}
+                                                                >
+                                                                    Fixed
+                                                                </button>
+                                                            </Popover.Button>
+                                                            <Transition
+                                                                as={Fragment}
+                                                                enter="transition ease-out duration-200"
+                                                                enterFrom="opacity-0 translate-y-1"
+                                                                enterTo="opacity-100 translate-y-0"
+                                                                leave="transition ease-in duration-150"
+                                                                leaveFrom="opacity-100 translate-y-0"
+                                                                leaveTo="opacity-0 translate-y-1"
+                                                            >
+                                                                <Popover.Panel className="absolute  z-100 mt-3 max-w-sm w-full  transform px-4 sm:px-0 lg:max-w-3xl">
+                                                                    <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
+                                                                        <div className="relative grid  bg-white lg:grid-cols-1">
+                                                                            {[1, 2, 3, 4, 5].map((item) => (
+                                                                                <button className='block py-[5px] hover:bg-primary w-full'>
+                                                                                    {item} Years
+                                                                                </button>
+                                                                            ))}
+                                                                        </div>
+                                                                    </div>      
+                                                                </Popover.Panel>
+                                                            </Transition>
+                                                        </>
+                                                    )}
+                                                </Popover>
+                                            </div>
+
                                             <button
                                                 type="button"
                                                 className={`inline-flex w-1/2 justify-center rounded-r-full  px-3 py-2 text-md font-semibold  border-gray border-[1px] 

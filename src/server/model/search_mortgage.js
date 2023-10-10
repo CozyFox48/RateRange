@@ -34,7 +34,7 @@ const MortgageSearchIndexSchema = new mongoose.Schema({
     feature_offset: Boolean,
     feature_redraw: Boolean,
     feature_extra: Boolean,
-    feature_cashback: Boolean
+    feature_cashback: Boolean   
 });
 
-module.exports = mongoose.models.MortgageSearchIndexSchema || mongoose.model('search_mortgage', MortgageSearchIndexSchema);
+module.exports = mongoose.models.search_mortgage || mongoose.model('search_mortgage', MortgageSearchIndexSchema);

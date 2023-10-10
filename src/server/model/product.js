@@ -241,4 +241,4 @@ const ProductListSchema = new mongoose.Schema({
     }]
 });
 
-module.exports = mongoose.models.ProductListSchema || mongoose.model('product', ProductListSchema);
+module.exports = mongoose.models.product || mongoose.model('product', ProductListSchema);

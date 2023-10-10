@@ -1,4 +1,5 @@
 
+import { List } from "postcss/lib/list";
 import SearchQuery from "./types/search";
 
 export type ErrorResponse = {
@@ -7,7 +8,7 @@ export type ErrorResponse = {
 };
 export type FeedbackListResponse = {
   status: string;
-  results: number;
+  data: Array<any>;
 };
 
 export type FeedbackResponse = {
@@ -33,17 +34,13 @@ async function handleResponse<T>(response: Response): Promise<T> {
   return data as T;
 }
 
-
-
-
-
-export async function mainSearch(query: SearchQuery): Promise<object> {
+export async function mainSearch(query: SearchQuery): Promise<Array<any>> {
   
   const response = await fetch(
     `/api/mortgage_search?${getQueryString(query)}`
   );
 
-  return handleResponse<FeedbackListResponse>(response).then((data) => data);
+  return handleResponse<FeedbackListResponse>(response).then((data) => data.data);
 }
 
 // Utility function to convert the query object to a query string

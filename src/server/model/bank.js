@@ -36,4 +36,4 @@ const BankListSchema = new mongoose.Schema({
   
 });
 
-module.exports = mongoose.models.BankListSchema || mongoose.model('bank', BankListSchema);
+module.exports = mongoose.models.bank || mongoose.model('bank', BankListSchema);

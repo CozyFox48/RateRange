@@ -73,13 +73,13 @@ async function fetchData() {
 
 
 
-                        if (Number(productsDetail["MAX_AGE"]) > 0) {
-                            pre_config["age_max"] = Number(productsDetail["MAX_AGE"]);
-                        }
+                        // if (Number(productsDetail["MAX_AGE"]) > 0) {
+                        //     pre_config["age_max"] = Number(productsDetail["MAX_AGE"]);
+                        // }
 
-                        if (Number(productsDetail["MIN_AGE"]) > 0) {
-                            pre_config["age_min"] = Number(productsDetail["MIN_AGE"]);
-                        }
+                        // if (Number(productsDetail["MIN_AGE"]) > 0) {
+                        //     pre_config["age_min"] = Number(productsDetail["MIN_AGE"]);
+                        // }
                         // console.log("age", pre_config, productsDetail["eligibility"]);
 
                         if ("constraints" in productsDetail) {

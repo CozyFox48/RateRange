@@ -26,11 +26,13 @@ const ContactPage = () => {
       feature_redraw: null,
       feature_extra: null,
       feature_cashback: null
-    })
+    });
+    const [products, setProducts]=useState<any[]>([]);
 
   const searchFunc = async () => {
     const feedbacks = await mainSearch(searchQuery);
     console.log(feedbacks);
+    setProducts(feedbacks);
   }
 
   return (
@@ -43,7 +45,7 @@ const ContactPage = () => {
             <Basic_Search />
             <div className="mt-[20px]">
               <div className="grid grid-cols-1 gap-x-8 gap-y-14 lg:grid-cols-12">
-                <Product_List />
+                <Product_List products={products}/>
                 <Filter_List />
               </div>
             </div>
