@@ -14,7 +14,7 @@ const First_Filter: React.FC<ChildComponentProps> = ({ searchQuery, setSearchQue
 
     const [agreePolicy, setAgreePolicy] = useState(false);
     const [open, setOpen] = useState(true);
-    const [openDialogue, setOpenDialogue] = useState(true);
+    const [openPopup, setOpenPopup]=useState(false);
 
     return (
         <Transition.Root show={open} as={Fragment}>
@@ -72,9 +72,9 @@ const First_Filter: React.FC<ChildComponentProps> = ({ searchQuery, setSearchQue
                                                 ${searchQuery.loanPurpose === "invest" ? "bg-primary" : ""}`}
                                                 onClick={() => {
                                                     setSearchQuery({
-                                                        ...searchQuery, loanPurpose:
-                                                            searchQuery.loanPurpose === "invest" ? "undefined" : "invest"
-                                                    })
+                                                        ...searchQuery,
+                                                        loanPurpose: "invest"
+                                                    });
                                                 }}
                                             >
                                                 Investment
@@ -85,9 +85,9 @@ const First_Filter: React.FC<ChildComponentProps> = ({ searchQuery, setSearchQue
                                                 ${searchQuery.loanPurpose === "owned" ? "bg-primary" : ""}`}
                                                 onClick={() => {
                                                     setSearchQuery({
-                                                        ...searchQuery, loanPurpose:
-                                                            searchQuery.loanPurpose === "owned" ? "undefined" : "owned"
-                                                    })
+                                                        ...searchQuery,
+                                                        loanPurpose: "owned"
+                                                    });
                                                 }}
                                             >
                                                 Owned
@@ -139,21 +139,16 @@ const First_Filter: React.FC<ChildComponentProps> = ({ searchQuery, setSearchQue
                                                             <Popover.Button className="w-full">
                                                                 <button
                                                                     type="button"
+                                                                    onClick={()=>{setOpenPopup(true)}}
                                                                     className={` justify-center rounded-l-full w-full px-3 py-2 text-md font-semibold  border-gray border-[1px] 
                                                 ${searchQuery.rateType === "fixed" ? "bg-primary" : ""}`}
-                                                                    onClick={() => {
-                                                                        setSearchQuery({
-                                                                            ...searchQuery, rateType:
-                                                                                searchQuery.rateType === "fixed" ? "undefined" : "fixed"
-                                                                        })
-                                                                    }}
                                                                 >
                                                                     Fixed
                                                                 </button>
                                                             </Popover.Button>
                                                             <Transition
                                                                 as={Fragment}
-                                                                enter="transition ease-out duration-200"
+                                                                     enter="transition ease-out duration-200"
                                                                 enterFrom="opacity-0 translate-y-1"
                                                                 enterTo="opacity-100 translate-y-0"
                                                                 leave="transition ease-in duration-150"
@@ -161,15 +156,26 @@ const First_Filter: React.FC<ChildComponentProps> = ({ searchQuery, setSearchQue
                                                                 leaveTo="opacity-0 translate-y-1"
                                                             >
                                                                 <Popover.Panel className="absolute  z-100 mt-3 max-w-sm w-full  transform px-4 sm:px-0 lg:max-w-3xl">
-                                                                    <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
+                                                                    <div className={`overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5
+                                                                    ${openPopup?'':'hidden'}`}>
                                                                         <div className="relative grid  bg-white lg:grid-cols-1">
                                                                             {[1, 2, 3, 4, 5].map((item) => (
-                                                                                <button className='block py-[5px] hover:bg-primary w-full'>
+                                                                                <button
+                                                                                    className='block py-[5px] hover:bg-primary w-full'
+                                                                                    onClick={() => {
+                                                                                        setSearchQuery({
+                                                                                            ...searchQuery,
+                                                                                            fixed_term: item,
+                                                                                            rateType: 'fixed'
+                                                                                        });
+                                                                                        setOpenPopup(false);
+                                                                                    }}
+                                                                                >
                                                                                     {item} Years
                                                                                 </button>
                                                                             ))}
                                                                         </div>
-                                                                    </div>      
+                                                                    </div>
                                                                 </Popover.Panel>
                                                             </Transition>
                                                         </>
@@ -183,8 +189,8 @@ const First_Filter: React.FC<ChildComponentProps> = ({ searchQuery, setSearchQue
                                                 ${searchQuery.rateType === "variable" ? "bg-primary" : ""}`}
                                                 onClick={() => {
                                                     setSearchQuery({
-                                                        ...searchQuery, rateType:
-                                                            searchQuery.rateType === "variable" ? "undefined" : "variable"
+                                                        ...searchQuery,
+                                                        rateType: "variable"
                                                     })
                                                 }}
                                             >
@@ -227,8 +233,8 @@ const First_Filter: React.FC<ChildComponentProps> = ({ searchQuery, setSearchQue
                                                 ${searchQuery.repaymentType === "I&P" ? "bg-primary" : ""}`}
                                                 onClick={() => {
                                                     setSearchQuery({
-                                                        ...searchQuery, repaymentType:
-                                                            searchQuery.repaymentType === "I&P" ? "undefined" : "I&P"
+                                                        ...searchQuery,
+                                                        repaymentType: "I&P"
                                                     })
                                                 }}
                                             >
@@ -240,8 +246,8 @@ const First_Filter: React.FC<ChildComponentProps> = ({ searchQuery, setSearchQue
                                                 ${searchQuery.repaymentType === "Ionly" ? "bg-primary" : ""}`}
                                                 onClick={() => {
                                                     setSearchQuery({
-                                                        ...searchQuery, repaymentType:
-                                                            searchQuery.repaymentType === "Ionly" ? "undefined" : "Ionly"
+                                                        ...searchQuery,
+                                                        repaymentType: "Ionly"
                                                     })
                                                 }}
                                             >
@@ -255,8 +261,8 @@ const First_Filter: React.FC<ChildComponentProps> = ({ searchQuery, setSearchQue
                                             <div className='flex w-full gap-[10px]'>
                                                 <input
                                                     type="number"
-                                                    onChange={(e) => { setSearchQuery({ ...searchQuery, term: e.target.value }) }}
-                                                    value={searchQuery.term}
+                                                    onChange={(e) => { setSearchQuery({ ...searchQuery, period: e.target.value }) }}
+                                                    value={searchQuery.period}
                                                     className="inline-flex w-full justify-center rounded-md  px-3 py-2 text-md font-semibold  border-gray border-[1px]"
                                                 />
                                             </div>
@@ -339,7 +345,14 @@ const First_Filter: React.FC<ChildComponentProps> = ({ searchQuery, setSearchQue
                                 <div className="bg-gray-50 mx-[3%] mb-[20px] flex justify-between sm:flex-row-reverse sm:px-6 align-center">
                                     <button
                                         type="button"
-                                        disabled={!agreePolicy}
+                                        disabled={!agreePolicy||
+                                            searchQuery.loanPurpose==="undefined"||
+                                            searchQuery.rateType==="undefined"||
+                                            searchQuery.repaymentType==="undefined"||
+                                            searchQuery.total_amount<=0||
+                                            searchQuery.borrow_amount<=0||
+                                            searchQuery.period<=0
+                                        }
                                         className="mt-3 inline-flex w-full justify-center rounded-md bg-primary px-3 py-2 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 disabled:bg-opacity-20 hover:bg-opacity-80 sm:mt-0 sm:w-auto"
                                         onClick={() => {
                                             searchFunc();

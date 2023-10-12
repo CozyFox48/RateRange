@@ -7,7 +7,7 @@ export default interface SearchQuery {
   repaymentType: string,
   total_amount: number,
   borrow_amount: number,
-  term: number,
+  fixed_term: number,
   period:number,
   feature_offset: boolean | null,
   feature_redraw: boolean | null,

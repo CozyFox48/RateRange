@@ -56,7 +56,7 @@ async function fetchData() {
                         // save search Data
 
                         let pre_config = {}
-                        if ("fees" in productsDetail) {
+                        if ("fees" in productsDetail && Array.isArray(productsDetail["fees"])) {
                             for (const fee of productsDetail["fees"]) {
                                 if (fee["feeType"] == "UPFRONT" && Number(fee["amount"]) > 0) {
                                     pre_config["fee_upfront"] = true;
@@ -115,14 +115,17 @@ async function fetchData() {
                             }
                         }
                         // console.log("features", pre_config, productsDetail.features)
-                        if ("lendingRates" in productsDetail){
+                        if ("lendingRates" in productsDetail && Array.isArray(productsDetail.lendingRates)) {
                             for (let i = 0; i < productsDetail.lendingRates.length; i++) {
                                 const eachRate = productsDetail.lendingRates[i];
                                 let aggregate_result = {};
                                 aggregate_result["bank"] = eachProduct.bank;
                                 aggregate_result["product_refer"] = eachProduct._id;
                                 aggregate_result["id"] = i;
-    
+                                aggregate_result["rate"] = eachRate.rate;
+                                aggregate_result["comparisonRate"] = eachRate.comparisonRate;
+
+
                                 if ("tiers" in eachRate) {
                                     for (const tier of eachRate["tiers"]) {
                                         if (tier["name"].toUpperCase().indexOf("LVR") !== -1 && tier["unitOfMeasure"] === "PERCENT") {
@@ -143,7 +146,7 @@ async function fetchData() {
                                         }
                                     }
                                 }
-    
+
                                 if (eachRate["lendingRateType"] === "FIXED" && "additionalValue" in eachRate && eachRate["additionalValue"] !== null) {
                                     try {
                                         const durationObject = iso8601Duration.parse(eachRate["additionalValue"]);
@@ -153,36 +156,36 @@ async function fetchData() {
                                         console.log("Hey, this is error while calculating period");
                                     }
                                 }
-    
+
                                 if (eachRate.repaymentType === 'INTEREST_ONLY') {
                                     aggregate_result["repaymentType"] = "Ionly";
                                 } else if (eachRate.repaymentType === 'PRINCIPAL_AND_INTEREST') {
                                     aggregate_result["repaymentType"] = "I&P";
                                 }
-    
+
                                 if (eachRate.loanPurpose === 'INVESTMENT') {
                                     aggregate_result["loanPurpose"] = "invest";
                                 } else if (eachRate.loanPurpose === 'OWNER_OCCUPIED') {
                                     aggregate_result["loanPurpose"] = "owned";
                                 }
-    
+
                                 if (eachRate.lendingRateType === 'VARIABLE') {
                                     aggregate_result["rateType"] = "variable";
                                 } else if (eachRate.lendingRateType === 'FIXED') {
                                     aggregate_result["rateType"] = "fixed";
                                 }
-    
+
                                 // console.log("rate", aggregate_result, eachRate);
-    
+
                                 Aggregate_mortgage.create({
                                     ...aggregate_result,
                                     ...pre_config
                                 })
-    
+
                             }
                         }
 
-                        
+
 
 
                         const productDoc = new Product(eachProduct); // Convert eachProduct to a Mongoose document

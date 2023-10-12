@@ -1,9 +1,37 @@
 const mongoose = require('mongoose');
+const treatString2Number = (value) => {
+    let result = null;
+    try {
+        if (typeof value === 'string') {
+            result = Number(value);
 
+            if (isNaN(result)) {
+                result = null;
+            } else if (result > 1) {
+                result = result / 100;
+            }
+        }
+    } catch (error) {
+        result = null;
+    }
+    return result;
+}
 const MortgageSearchIndexSchema = new mongoose.Schema({
     bank: {
         type: mongoose.Schema.Types.ObjectId,
         refer: 'bank'
+    },
+    rate: {
+        type: Number,
+        set: function (value) {
+            return treatString2Number(value);
+        }
+    },
+    comparisonRate: {
+        type: Number,
+        set: function (value) {
+            return treatString2Number(value);
+        }
     },
     product_refer: {
         type: mongoose.Schema.Types.ObjectId,
@@ -14,7 +42,7 @@ const MortgageSearchIndexSchema = new mongoose.Schema({
         type: String,
         enum: ['I&P', "Ionly"]
     },
-    LVR_min: Number,            
+    LVR_min: Number,
     LVR_max: Number,
     loanPurpose: {
         type: String,
@@ -34,7 +62,7 @@ const MortgageSearchIndexSchema = new mongoose.Schema({
     feature_offset: Boolean,
     feature_redraw: Boolean,
     feature_extra: Boolean,
-    feature_cashback: Boolean   
+    feature_cashback: Boolean
 });
 
 module.exports = mongoose.models.search_mortgage || mongoose.model('search_mortgage', MortgageSearchIndexSchema);

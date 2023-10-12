@@ -18,6 +18,7 @@ module.exports = {
       red:"#FF0800",
       dark: "#000000",
       primary: "#2FB673",
+      secondary:"#7FFFD4",
       yellow: "#FBB040",
       danger:"#D21404",
       "body-color": "#959CB1",

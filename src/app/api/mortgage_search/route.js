@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import dbConnect from "../../../server/dbConnect";
 import SearchIndexDB from "./../../../server/model/search_mortgage";
 import ProductDB from "./../../../server/model/product";
@@ -26,45 +26,56 @@ export async function GET(request) {
         const realValue = Number(value);
         if (realValue > 0) {
           convertedQuery["$expr"] = { "$and": [] };
-          convertedQuery.$expr.$and.push({ $gt: [loanAmount_max, realValue] });
-          convertedQuery.$expr.$and.push({ $lt: [loanAmount_min, realValue] });
+          // convertedQuery.$expr.$and.push(
+          //   { $or: [{ $eq: ["$loanAmount_max", null] }, { $gte: ["$loanAmount_max", realValue] }] }
+          // );
+          // convertedQuery.$expr.$and.push(
+          //   { $or: [{ $eq: ["$loanAmount_min", null] }, { $lte: ["$loanAmount_min", realValue] }] }
+          // );
           if (searchParams.has("total_amount")) {
             const totalAmount = Number(searchParams.get("total_amount"));
             if (totalAmount > 0) {
               const LVR = realValue / totalAmount;
-              convertedQuery.$expr.$and.push({ $gt: [LVR_max, LVR] });
-              convertedQuery.$expr.$and.push({ $lt: [LVR_min, LVR] });
+              // convertedQuery.$expr.$and.push(
+              //   { $or: [{ $eq: ["$LVR_min", null] }, { $lte: ["$LVR_min", LVR] }] }
+              // );
+              // convertedQuery.$expr.$and.push(
+              //   { $or: [{ $eq: ["$LVR_max", null] }, { $gte: ["$LVR_max", LVR] }] }
+              // );
             }
           }
         }
-      } else if (key === "period") {
+      } else if (key === "fixed_term" && searchParams.get("rateType") === "fixed") {
         const realValue = Number(value);
         if (realValue > 0) {
-          convertedQuery[key] = realValue;
+          convertedQuery[key] = realValue * 12;
         }
       }
-
     });
+
 
     const result = await SearchIndexDB.aggregate([
       {
         $match: convertedQuery
       }, {
+        $sort: { rate: 1 }
+      }, {
         $limit: 10
       }
-    ])
+    ]);
 
-    let finalResult =[]
-    for(const each of result){
-      
+
+    // const result = await SearchIndexDB.find().limit(10);
+
+    let finalResult = [];
+    for (const each of result) {
+
       const productInfo = await ProductDB.findById(each.product_refer);
-      const rateInfo = productInfo.lendingRates[each.id];
+
       const bankInfo = await bankDB.findById(each.bank);
-      
+
       finalResult.push({
         searchIndex: each,
-        rate: rateInfo.rate,
-        comparisonRate: rateInfo.comparisonRate,
         mainInfo: productInfo.mainInfo,
         bankname: bankInfo.brandName,
         bankUri: bankInfo.publicBaseUri,
@@ -72,14 +83,13 @@ export async function GET(request) {
       })
     }
 
-
-
     let json_response = {
       status: "success",
       data: finalResult,
     };
     return NextResponse.json(json_response);
   } catch (error) {
+    console.log(error);
     let error_response = {
       status: "error",
       message: error.message,
