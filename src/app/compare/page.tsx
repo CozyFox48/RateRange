@@ -49,6 +49,7 @@ const ContactPage = () => {
         />
         <DetailedCompare
           products={products}
+          setSelect4detail={setSelect4detail}
           select4detail={select4detail}
           openDetailedCompare={openDetailedCompare}
           setOpenDetailedCompare={setOpenDetailedCompare}
@@ -72,8 +73,8 @@ const ContactPage = () => {
           {openSelected === false ? <></> :
             <Selected_Product
               products={products}
-              select4detail={select4detail}
               setSelect4detail={setSelect4detail}
+              select4detail={select4detail}
               setOpenDetailedCompare={setOpenDetailedCompare}
               setOpenSelected={setOpenSelected}
             />}

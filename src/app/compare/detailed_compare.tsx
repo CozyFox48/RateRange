@@ -1,16 +1,18 @@
 "use client";
 import { Dialog, Transition, Popover } from '@headlessui/react'
 import { Fragment, useState } from "react";
-
+import standarize from "@/utilz/numberStandize";
+import { FaTimes } from "react-icons/fa";
 type ChildComponentProps = {
     products: any[],
     select4detail: Number[],
     openDetailedCompare: boolean,
+    setSelect4detail:React.Dispatch<React.SetStateAction<Number[]>>;
     setOpenDetailedCompare: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 
-const DetailedCompare: React.FC<ChildComponentProps> = ({ products, select4detail, openDetailedCompare, setOpenDetailedCompare }) => {
+const DetailedCompare: React.FC<ChildComponentProps> = ({ products, select4detail, openDetailedCompare,setSelect4detail, setOpenDetailedCompare }) => {
 
     const tableLayout = [[
         "string", "Name", "mainInfo", "name"
@@ -41,14 +43,13 @@ const DetailedCompare: React.FC<ChildComponentProps> = ({ products, select4detai
 
             switch (eachRow[0]) {
                 case "boolean":
-                    console.log(each, eachRow[3], eachProduct[eachRow[2]][eachRow[3]], eachProduct[eachRow[2]][eachRow[3]] ? "True" : "False");
                     result = eachProduct[eachRow[2]][eachRow[3]] ? "True" : "False";
                     break;
                 case "string":
                     result = eachProduct[eachRow[2]][eachRow[3]];
                     break;
                 case "number":
-                    result = eachProduct[eachRow[2]][eachRow[3]];
+                    result = standarize(eachProduct[eachRow[2]][eachRow[3]] * 100).toString();
                     break;
             }
         } catch (error) {
@@ -76,7 +77,7 @@ const DetailedCompare: React.FC<ChildComponentProps> = ({ products, select4detai
 
     return (
         <Transition.Root show={openDetailedCompare} as={Fragment}>
-            <Dialog as="div" className="relative z-10 " onClose={() => { }}>
+            <Dialog as="div" className="relative z-100 " onClose={() => { }}>
                 <Transition.Child
                     as={Fragment}
                     enter="ease-out duration-300"
@@ -89,8 +90,8 @@ const DetailedCompare: React.FC<ChildComponentProps> = ({ products, select4detai
                     <div className="fixed inset-0 bg-dark bg-opacity-80 transition-opacity" />
                 </Transition.Child>
 
-                <div className="fixed inset-0 z-10 w-screen overflow-y-auto ">
-                    <div className="flex min-h-full items-end  w-3/4 mx-auto justify-center  text-center sm:items-center sm:p-0">
+                <div className="fixed inset-0 z-100 w-screen overflow-y-auto ">
+                    <div className="flex min-h-full items-end z-100 w-3/4 mx-auto justify-center  text-center sm:items-center sm:p-0">
                         <Transition.Child
                             as={Fragment}
                             enter="ease-out duration-300"
@@ -101,7 +102,16 @@ const DetailedCompare: React.FC<ChildComponentProps> = ({ products, select4detai
                             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                         >
                             <Dialog.Panel className="relative transform  rounded-lg w-full bg-white dark:bg-black text-left shadow-xl transition-all sm:my-8 ">
-                                <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+                                <div className="relative overflow-x-auto shadow-md sm:rounded-lg ">
+                                    <span
+                                        onClick={() => {
+                                            setOpenDetailedCompare(false);
+                                            setSelect4detail([]);
+                                        }}
+                                        className=' rounded-full  absolute bg-red opacity-[0.6] -right-[40px] -top-[40px] w-[80px] h-[80px] hover:cursor-[pointer]'
+                                    >
+                                        <FaTimes className="ml-[15px] mt-[50px] w-[20px] h-[20px]" />
+                                    </span>
                                     <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                                         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                             <tr>
@@ -137,7 +147,6 @@ const DetailedCompare: React.FC<ChildComponentProps> = ({ products, select4detai
                                         </thead>
                                         <tbody>
                                             {mainContent()}
-
                                         </tbody>
                                     </table>
                                 </div>

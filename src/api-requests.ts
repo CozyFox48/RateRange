@@ -1,5 +1,3 @@
-
-import { List } from "postcss/lib/list";
 import SearchQuery from "./types/search";
 
 export type ErrorResponse = {
@@ -8,14 +6,12 @@ export type ErrorResponse = {
 };
 export type FeedbackListResponse = {
   status: string;
-  data: Array<any>;
+  data: Array<any> | any;
 };
 
 export type FeedbackResponse = {
   status: string;
 };
-
-
 
 const SERVER_ENDPOINT = process.env.SERVER_ENDPOINT || "http://localhost:3000";
 
@@ -43,6 +39,11 @@ export async function mainSearch(query: SearchQuery): Promise<Array<any>> {
   return handleResponse<FeedbackListResponse>(response).then((data) => data.data);
 }
 
+export async function detailedInfo(id:string){
+  const response=await fetch(`/api/detailed/${id}`)
+
+  return handleResponse<FeedbackListResponse>(response).then((data) => data.data);
+}
 // Utility function to convert the query object to a query string
 const getQueryString = (query: SearchQuery) =>
   Object.entries(query)

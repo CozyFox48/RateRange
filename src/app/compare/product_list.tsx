@@ -1,13 +1,5 @@
 "use client";
-
-const standarize = (input: number) => {
-    if (input < 0.1) {
-        const result = input * 100;
-        return result.toFixed(2);
-    } else {
-        return input.toFixed(2);
-    }
-}
+import standarize from "@/utilz/numberStandize";
 
 type ChildComponentProps = {
     products: any[],
@@ -17,6 +9,10 @@ type ChildComponentProps = {
 };
 
 const Product_List = ({ products, select4detail, setSelect4detail,setOpenSelected }: ChildComponentProps) => {
+
+    const navigateToPage = (id:string) => {
+        window.location.href = `/detail/${id}`;
+    };
 
     return (
         <div className="lg:col-span-8 w-full  p-[20px]">
@@ -79,7 +75,7 @@ const Product_List = ({ products, select4detail, setSelect4detail,setOpenSelecte
                             </div>
                             <div className="w-[105px] flex-shrink-0">
                                 <button
-
+                                    onClick={()=>{navigateToPage(each.searchIndex._id)}}
                                     className="rounded-md bg-primary p-2 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp"
                                 >
                                     More Detail
