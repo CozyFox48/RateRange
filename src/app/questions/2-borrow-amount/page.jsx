@@ -2,9 +2,11 @@
 import Image from "next/image";
 import SectionTitle from "../../../components/Common/SectionTitle";
 import Link from "next/link";
+import { QueryContext } from './../../../utilz/queryContext';
+import { useContext } from "react";
 
 const AboutSectionOne = () => {
-
+    const { searchQuery, setSearchQuery } = useContext(QueryContext);
     return (
         <section id="about" className="flex items-center h-[100vh]">
             <div className="container max-w-[1000px]">
@@ -24,6 +26,10 @@ const AboutSectionOne = () => {
                                 <input
                                     type="number"
                                     name="number"
+                                    onChange={(e)=>{
+                                        setSearchQuery({...searchQuery, borrow_amount:e.target.value})
+                                    }}
+                                    value={searchQuery.borrow_amount}
                                     placeholder="Enter your borrow amount"
                                     className="w-full rounded-md border border-primary py-3 px-6 text-base placeholder-body-color shadow-one outline-none focus:border-2 focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
                                 />
@@ -31,7 +37,7 @@ const AboutSectionOne = () => {
                             <div className="flex gap-2">
                                 <Link
                                     href="/questions/1-loan-purpose"
-                                    className="flex w-1/2 items-center justify-center rounded-md bg-white py-3 px-9 text-base font-medium border-primary border border-1 transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp"
+                                    className="flex w-1/2 items-center justify-center text-black rounded-md bg-white py-3 px-9 text-base font-medium border-primary border border-1 transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp"
                                 >
                                     Back
                                 </Link>

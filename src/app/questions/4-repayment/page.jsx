@@ -1,14 +1,18 @@
-"use client"
-import { useContext } from "react";
 import Image from "next/image";
 import SectionTitle from "../../../components/Common/SectionTitle";
 import Link from "next/link";
-import RadioButton from "./../../../components/radioButton/index";
-import { QueryContext } from './../../../utilz/queryContext';
 
 const AboutSectionOne = () => {
-    const { searchQuery, setSearchQuery } = useContext(QueryContext);
-
+    const List = ({ text }) => (
+        <label className="mb-5 flex items-center text-lg font-medium gap-1">
+            <span className="flex-none  bg-white border border-primary rounded-full w-6 h-6 flex items-center justify-center transition-all duration-300">
+                <span className="rounded-full bg-primary w-3 h-3"></span>
+            </span>
+            <span className="grow pl-3">
+                {text}
+            </span>
+        </label>
+    );
 
     return (
         <section id="about" className="flex items-center h-[100vh]">
@@ -21,48 +25,23 @@ const AboutSectionOne = () => {
                                 paragraph=""
                                 mb="44px"
                             />
+
                             <div
                                 className="wow fadeInUp mb-12 max-w-[570px] lg:mb-0"
                                 data-wow-delay=".15s"
                             >
-                                <RadioButton
-                                    text="Buy first home"
-                                    clicked={searchQuery.loanPurpose == "firstHome"}
-                                    onClick={() => {
-                                        setSearchQuery({ ...searchQuery, loanPurpose: "firstHome" })
-                                    }}
-                                />
-                                <RadioButton
-                                    text="Buy a home to live"
-                                    clicked={searchQuery.loanPurpose == "owned"}
-                                    onClick={() => {
-                                        setSearchQuery({ ...searchQuery, loanPurpose: "owned" })
-                                    }}
-                                />
-                                <RadioButton
-                                    text="Buy an investment property"
-                                    clicked={searchQuery.loanPurpose == "invest"}
-                                    onClick={() => {
-                                        setSearchQuery({ ...searchQuery, loanPurpose: "invest" })
-                                    }}
-                                />
-                                <RadioButton
-                                    text="Refinance home"
-                                    clicked={searchQuery.loanPurpose == "refinance"}
-                                    onClick={() => {
-                                        setSearchQuery({ ...searchQuery, loanPurpose: "refinance" })
-                                    }}
-                                />
+                                <List text="Principal and Interest" />
+                                <List text="Interest Only" />
                             </div>
                             <div className="flex gap-2">
                                 <Link
-                                    href="/questions/greeting"
-                                    className="flex w-1/2 items-center justify-center rounded-md text-black bg-white py-3 px-9 text-base font-medium border-primary border border-1 transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp"
+                                    href="/questions/3-loan-type"
+                                    className="flex w-1/2 items-center text-black justify-center rounded-md bg-white py-3 px-9 text-base font-medium border-primary border border-1 transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp"
                                 >
                                     Back
                                 </Link>
                                 <Link
-                                    href="/questions/2-borrow-amount"
+                                    href="/signup"
                                     className="flex w-1/2 items-center justify-center rounded-md bg-primary py-3 px-9 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp"
                                 >
                                     Next

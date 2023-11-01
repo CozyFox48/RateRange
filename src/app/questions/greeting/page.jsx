@@ -48,7 +48,7 @@ const AboutSectionOne = () => {
               <div className="flex gap-2">
                 <Link
                   href="/"
-                  className="flex w-1/2 items-center justify-center rounded-md bg-white py-3 px-9 text-base font-medium border-primary border border-1 transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp"
+                  className="flex w-1/2 items-center justify-center rounded-md bg-white py-3 px-9 font-medium border-primary border border-1 transition duration-300 ease-in-out text-black hover:bg-opacity-80 hover:shadow-signUp"
                 >
                   Back
                 </Link>
