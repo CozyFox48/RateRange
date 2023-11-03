@@ -1,7 +1,7 @@
 "use client"
 import Image from "next/image";
 import SectionTitle from "../../../components/Common/SectionTitle";
-import Link from "next/link";
+import LinkButton from "./../../../components/linkButton/index";
 import { QueryContext } from './../../../utilz/queryContext';
 import { useContext } from "react";
 
@@ -26,8 +26,8 @@ const AboutSectionOne = () => {
                                 <input
                                     type="number"
                                     name="number"
-                                    onChange={(e)=>{
-                                        setSearchQuery({...searchQuery, borrow_amount:e.target.value})
+                                    onChange={(e) => {
+                                        setSearchQuery({ ...searchQuery, borrow_amount: e.target.value })
                                     }}
                                     value={searchQuery.borrow_amount}
                                     placeholder="Enter your borrow amount"
@@ -35,18 +35,22 @@ const AboutSectionOne = () => {
                                 />
                             </div>
                             <div className="flex gap-2">
-                                <Link
-                                    href="/questions/1-loan-purpose"
-                                    className="flex w-1/2 items-center justify-center text-black rounded-md bg-white py-3 px-9 text-base font-medium border-primary border border-1 transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp"
+                                <LinkButton
+                                    content="Back"
+                                    mode="white"
+                                    nextLink="/questions/1-loan-purpose"
+                                    className="w-1/2"
                                 >
-                                    Back
-                                </Link>
-                                <Link
-                                    href="/questions/3-loan-type"
-                                    className="flex w-1/2 items-center justify-center rounded-md bg-primary py-3 px-9 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp"
+                                </LinkButton>
+                                <LinkButton
+                                    content="Next"
+                                    className="w-1/2"
+                                    nextLink="/questions/3-loan-type"
+                                    disabled={
+                                        searchQuery.borrow_amount > 0
+                                    }
                                 >
-                                    Next
-                                </Link>
+                                </LinkButton>
                             </div>
                         </div>
 

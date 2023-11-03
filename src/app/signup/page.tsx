@@ -16,7 +16,7 @@ const SignupPage = () => {
                 <p className="mb-11 text-center text-base font-medium text-body-color">
                   It’s totally free and super easy
                 </p>
-                <button className="mb-6 flex w-full items-center justify-center rounded-md bg-white p-3 text-base font-medium text-body-color shadow-one hover:text-primary dark:bg-[#242B51] dark:text-body-color dark:shadow-signUp dark:hover:text-white">
+                {/* <button className="mb-6 flex w-full items-center justify-center rounded-md bg-white p-3 text-base font-medium shadow-one hover:text-primary dark:bg-[#242B51] dark:dark:shadow-signUp dark:hover:text-white">
                   <span className="mr-3">
                     <svg
                       width="20"
@@ -58,22 +58,39 @@ const SignupPage = () => {
                     Or, register with your email
                   </p>
                   <span className="hidden h-[1px] w-full max-w-[60px] bg-body-color sm:block"></span>
-                </div>
+                </div> */}
                 <form>
-                  <div className="mb-8">
-                    <label
-                      htmlFor="name"
-                      className="mb-3 block text-sm font-medium text-dark dark:text-white"
-                    >
-                      {" "}
-                      Full Name{" "}
-                    </label>
-                    <input
-                      type="text"
-                      name="name"
-                      placeholder="Enter your full name"
-                      className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
-                    />
+                  <div className="mb-8 flex gap-[10px]">
+                    <div className="w-1/2">
+                      <label
+                        htmlFor="name"
+                        className="mb-3 block text-sm font-medium text-dark dark:text-white"
+                      >
+                        {" "}
+                        First Name{" "}
+                      </label>
+                      <input
+                        type="text"
+                        name="name"
+                        placeholder="your first name"
+                        className="w-full rounded-md border border-transparent py-3 px-6 text-base placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
+                      />
+                    </div>
+                    <div className="w-1/2">
+                      <label
+                        htmlFor="name"
+                        className="mb-3 block text-sm font-medium text-dark dark:text-white"
+                      >
+                        {" "}
+                        Second Name{" "}
+                      </label>
+                      <input
+                        type="text"
+                        name="name"
+                        placeholder="your second name"
+                        className="w-full rounded-md border border-transparent py-3 px-6 text-base placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
+                      />
+                    </div>
                   </div>
                   <div className="mb-8">
                     <label
@@ -87,7 +104,7 @@ const SignupPage = () => {
                       type="email"
                       name="email"
                       placeholder="Enter your Email"
-                      className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
+                      className="w-full rounded-md border border-transparent py-3 px-6 text-base placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
                     />
                   </div>
                   <div className="mb-8">
@@ -102,7 +119,7 @@ const SignupPage = () => {
                       type="password"
                       name="password"
                       placeholder="Enter your Password"
-                      className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
+                      className="w-full rounded-md border border-transparent py-3 px-6 text-base placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
                     />
                   </div>
                   <div className="mb-8 flex">

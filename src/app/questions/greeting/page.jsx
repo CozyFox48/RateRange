@@ -1,7 +1,7 @@
 "use client"
 import Image from "next/image";
 import SectionTitle from "../../../components/Common/SectionTitle";
-import Link from "next/link";
+import LinkButton from "./../../../components/linkButton/index";
 
 const checkIcon = (
   <svg width="16" height="13" viewBox="0 0 16 13" className="fill-current">
@@ -46,18 +46,19 @@ const AboutSectionOne = () => {
                 </div>
               </div>
               <div className="flex gap-2">
-                <Link
-                  href="/"
-                  className="flex w-1/2 items-center justify-center rounded-md bg-white py-3 px-9 font-medium border-primary border border-1 transition duration-300 ease-in-out text-black hover:bg-opacity-80 hover:shadow-signUp"
+                <LinkButton
+                  content="Back"
+                  mode="white"
+                  nextLink="/"
+                  className="w-1/2"
                 >
-                  Back
-                </Link>
-                <Link
-                  href="/questions/1-loan-purpose"
-                  className="flex w-1/2 items-center justify-center rounded-md bg-primary py-3 px-9 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp"
+                </LinkButton>
+                <LinkButton
+                  content="Next"
+                  className="w-1/2"
+                  nextLink="/questions/1-loan-purpose"
                 >
-                  Next
-                </Link>
+                </LinkButton>
               </div>
             </div>
 

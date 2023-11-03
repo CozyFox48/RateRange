@@ -2,8 +2,8 @@
 import { useContext } from "react";
 import Image from "next/image";
 import SectionTitle from "../../../components/Common/SectionTitle";
-import Link from "next/link";
 import RadioButton from "./../../../components/radioButton/index";
+import LinkButton from "./../../../components/linkButton/index";
 import { QueryContext } from './../../../utilz/queryContext';
 
 const AboutSectionOne = () => {
@@ -17,7 +17,7 @@ const AboutSectionOne = () => {
                     <div className="-mx-4 flex flex-wrap items-center ">
                         <div className="w-full px-4 lg:w-1/2">
                             <SectionTitle
-                                title="What is your loan purpose"
+                                title="What is your loan purpose?"
                                 paragraph=""
                                 mb="44px"
                             />
@@ -55,18 +55,25 @@ const AboutSectionOne = () => {
                                 />
                             </div>
                             <div className="flex gap-2">
-                                <Link
-                                    href="/questions/greeting"
-                                    className="flex w-1/2 items-center justify-center rounded-md text-black bg-white py-3 px-9 text-base font-medium border-primary border border-1 transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp"
+                                <LinkButton
+                                    content="Back"
+                                    mode="white"
+                                    nextLink="/questions/greeting"
+                                    className="w-1/2"
                                 >
-                                    Back
-                                </Link>
-                                <Link
-                                    href="/questions/2-borrow-amount"
-                                    className="flex w-1/2 items-center justify-center rounded-md bg-primary py-3 px-9 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp"
+                                </LinkButton>
+                                <LinkButton
+                                    content="Next"
+                                    className="w-1/2"
+                                    nextLink="/questions/2-borrow-amount"
+                                    disabled={
+                                        searchQuery.loanPurpose !== "refinance"
+                                        && searchQuery.loanPurpose !== "invest"
+                                        && searchQuery.loanPurpose !== "owned"
+                                        && searchQuery.loanPurpose !== "firstHome"
+                                    }
                                 >
-                                    Next
-                                </Link>
+                                </LinkButton>
                             </div>
 
                         </div>

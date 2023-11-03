@@ -2,13 +2,17 @@
 import Image from "next/image";
 import { useState } from 'react';
 import SectionTitle from "../../../components/Common/SectionTitle";
-import Link from "next/link";
+import LinkButton from "./../../../components/linkButton/index";
 import Slider from 'react-input-slider';
 import RadioButton from "./../../../components/radioButton/index";
+import { QueryContext } from './../../../utilz/queryContext';
+import { useContext } from "react";
+
 
 const AboutSectionOne = () => {
-    const [fixedValue, setFixedValue] = useState({ x: 1, y: 10 });
-    const [variableValue, setVariableValue] = useState({ x: 1, y: 10 });
+    const [fixedValue, setFixedValue] = useState({ x: 5});
+    const [variableValue, setVariableValue] = useState({ x: 15 });
+    const { searchQuery, setSearchQuery } = useContext(QueryContext);
 
     return (
         <section id="about" className="flex items-center h-[100vh]">
@@ -33,39 +37,63 @@ const AboutSectionOne = () => {
                                     }}
                                 />
                                 <div className="w-full">
-                                    <Slider className="w-full" axis="x" x={fixedValue.x} xstep={1} xmax={10} xmin={1} onChange={setFixedValue} />
+                                    <Slider
+                                        className="w-full"
+                                        axis="x"
+                                        x={fixedValue.x}
+                                        xstep={1}
+                                        xmax={10}
+                                        xmin={1}
+                                        onChange={setFixedValue}
+                                        disabled={searchQuery.rateType !== "fixed"}
+                                    />
                                 </div>
                             </div>
                             <div
                                 className="wow fadeInUp mb-[12px] max-w-[570px] w-full"
                                 data-wow-delay=".15s"
                             >
-                                <label className="mb-5 flex items-center text-lg font-medium gap-1">
-                                    <span className="flex-none  bg-white border border-primary rounded-full w-6 h-6 flex items-center justify-center transition-all duration-300">
-                                        <span className="rounded-full bg-primary w-3 h-3"></span>
-                                    </span>
-                                    <span className="grow pl-3">
-                                        Variable ( {variableValue.x} )
-                                    </span>
-                                </label>
+
+                                <RadioButton
+                                    text={`Variable ( ${variableValue.x} )`}
+                                    clicked={searchQuery.rateType == "variable"}
+                                    onClick={() => {
+                                        setSearchQuery({ ...searchQuery, rateType: "variable" })
+                                    }}
+                                />
                                 <div className="w-full">
-                    
-                                    <Slider className="w-full" axis="x" x={variableValue.x} xstep={1} xmax={30} xmin={1} onChange={setVariableValue} />
+                                    <Slider
+                                        className="w-full bg-primary"
+                                        axis="x"
+                                        x={variableValue.x}
+                                        xstep={1}
+                                        xmax={30}
+                                        xmin={1}
+                                        onChange={setVariableValue}
+                                        disabled={searchQuery.rateType !== "variable"}
+                                    />
                                 </div>
+
                             </div>
                             <div className="flex gap-2">
-                                <Link
-                                    href="/questions/2-borrow-amount"
-                                    className="flex w-1/2 items-center justify-center text-black rounded-md bg-white py-3 px-9 text-base font-medium border-primary border border-1 transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp"
+
+                                <LinkButton
+                                    content="Back"
+                                    mode="white"
+                                    nextLink="/questions/2-borrow-amount"
+                                    className="w-1/2"
                                 >
-                                    Back
-                                </Link>
-                                <Link
-                                    href="/questions/4-repayment"
-                                    className="flex w-1/2 items-center justify-center rounded-md bg-primary py-3 px-9 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp"
+                                </LinkButton>
+                                <LinkButton
+                                    content="Next"
+                                    className="w-1/2"
+                                    nextLink="/questions/4-repayment"
+                                    disabled={
+                                        searchQuery.rateType !== "fixed"
+                                        && searchQuery.rateType !== "variable"
+                                    }
                                 >
-                                    Next
-                                </Link>
+                                </LinkButton>
                             </div>
                         </div>
 

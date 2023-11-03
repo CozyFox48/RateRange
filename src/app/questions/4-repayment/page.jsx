@@ -1,18 +1,13 @@
+"use client"
 import Image from "next/image";
 import SectionTitle from "../../../components/Common/SectionTitle";
-import Link from "next/link";
+import LinkButton from "./../../../components/linkButton/index";
+import { useContext } from "react";
+import RadioButton from "./../../../components/radioButton/index";
+import { QueryContext } from './../../../utilz/queryContext';
 
 const AboutSectionOne = () => {
-    const List = ({ text }) => (
-        <label className="mb-5 flex items-center text-lg font-medium gap-1">
-            <span className="flex-none  bg-white border border-primary rounded-full w-6 h-6 flex items-center justify-center transition-all duration-300">
-                <span className="rounded-full bg-primary w-3 h-3"></span>
-            </span>
-            <span className="grow pl-3">
-                {text}
-            </span>
-        </label>
-    );
+    const { searchQuery, setSearchQuery } = useContext(QueryContext);
 
     return (
         <section id="about" className="flex items-center h-[100vh]">
@@ -21,7 +16,7 @@ const AboutSectionOne = () => {
                     <div className="-mx-4 flex flex-wrap items-center ">
                         <div className="w-full px-4 lg:w-1/2">
                             <SectionTitle
-                                title="What is your loan purpose"
+                                title="What is your repayment type"
                                 paragraph=""
                                 mb="44px"
                             />
@@ -30,22 +25,39 @@ const AboutSectionOne = () => {
                                 className="wow fadeInUp mb-12 max-w-[570px] lg:mb-0"
                                 data-wow-delay=".15s"
                             >
-                                <List text="Principal and Interest" />
-                                <List text="Interest Only" />
+                                <RadioButton
+                                    text="Principal and Interest"
+                                    clicked={searchQuery.repaymentType == "I&P"}
+                                    onClick={() => {
+                                        setSearchQuery({ ...searchQuery, repaymentType: "I&P" })
+                                    }}
+                                />
+                                <RadioButton
+                                    text="Interest Only"
+                                    clicked={searchQuery.repaymentType == "Ionly"}
+                                    onClick={() => {
+                                        setSearchQuery({ ...searchQuery, repaymentType: "Ionly" })
+                                    }}
+                                />
                             </div>
                             <div className="flex gap-2">
-                                <Link
-                                    href="/questions/3-loan-type"
-                                    className="flex w-1/2 items-center text-black justify-center rounded-md bg-white py-3 px-9 text-base font-medium border-primary border border-1 transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp"
+                                <LinkButton
+                                    content="Back"
+                                    mode="white"
+                                    nextLink="/questions/3-loan-type"
+                                    className="w-1/2"
                                 >
-                                    Back
-                                </Link>
-                                <Link
-                                    href="/signup"
-                                    className="flex w-1/2 items-center justify-center rounded-md bg-primary py-3 px-9 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp"
+                                </LinkButton>
+                                <LinkButton
+                                    content="Next"
+                                    className="w-1/2"
+                                    nextLink="/signup"
+                                    disabled={
+                                        searchQuery.repaymentType !== "Ionly"
+                                        && searchQuery.repaymentType !== "I&P"
+                                    }
                                 >
-                                    Next
-                                </Link>
+                                </LinkButton>
                             </div>
 
                         </div>

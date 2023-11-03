@@ -24,6 +24,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/api/mortgage_search/route.js", "src/app/questions/3-loan-type/page.jsx", "src/app/questions/1-loan-purpose/page.jsx", "src/app/questions/2-borrow-amount/page.jsx", "src/components/radioButton/index.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/api/mortgage_search/route.js", "src/app/questions/3-loan-type/page.jsx", "src/app/questions/1-loan-purpose/page.jsx", "src/app/questions/2-borrow-amount/page.jsx", "src/components/radioButton/index.jsx", "src/components/linkButton/index.jsx"],
   "exclude": ["node_modules"]
 }
