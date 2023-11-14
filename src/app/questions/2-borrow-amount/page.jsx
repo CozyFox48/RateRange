@@ -47,7 +47,7 @@ const AboutSectionOne = () => {
                                     className="w-1/2"
                                     nextLink="/questions/3-loan-type"
                                     disabled={
-                                        searchQuery.borrow_amount > 0
+                                        searchQuery.borrow_amount <= 0
                                     }
                                 >
                                 </LinkButton>
